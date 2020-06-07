@@ -9,6 +9,10 @@ import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-vi
 import styles from './Styles/MainBodyStyles';
 import AsyncStorage from '@react-native-community/async-storage';
 import TabBar from './TabBar';
+import HomeTab from './HomeTab';
+import SearchTab from './SearchTab';
+import AddTab from './AddTab';
+import UserTab from './UserTab';
 console.disableYellowBox = true;
 const MainBody = (props) => {
     const [darkMode, setDarkMode] = useState(false)
@@ -23,28 +27,24 @@ const MainBody = (props) => {
     };
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="dark-content" backgroundColor='transparent' translucent={true} />
+            <StatusBar barStyle="dark-content" backgroundColor='#673AB7' />
             <ScrollableTabView
                 style={styles.container}
                 tabBarPosition='bottom'
                 initialPage={0}
                 renderTabBar={() => <TabBar darkMode={darkMode} />}
             >
-                <View tabLabel="Từ vựng" style={styles.tabView}>
-                    {/* <LearnTab {...props} darkMode={darkMode} /> */}
-                    <Text>Từ vựng</Text>
+                <View tabLabel="Trang chủ" style={styles.tabView}>
+                    <HomeTab {...props} darkMode ={darkMode}/>
                 </View>
-                <View tabLabel="Kiểm tra" style={styles.tabView}>
-                    {/* <TestTab {...props} darkMode={darkMode} /> */}
-                    <Text>Kiểm tra</Text>
+                <View tabLabel="Tìm kiếm" style={styles.tabView}>
+                    <SearchTab {...props} />
                 </View>
-                <View tabLabel="Xem lại" style={styles.tabView}>
-                    {/* <ReviewTab {...props} darkMode={darkMode} /> */}
-                    <Text>Xem lại</Text>
+                <View tabLabel="Thêm mới" style={styles.tabView}>
+                    <AddTab {...props} />
                 </View>
                 <View tabLabel="Cài đặt" style={styles.tabView}>
-                    {/* <SettingTab darkMode={darkMode} setDarkMode={setDarkMode} /> */}
-                    <Text>Cài đặt</Text>
+                    <UserTab {...props} />
                 </View>
             </ScrollableTabView>
         </SafeAreaView>

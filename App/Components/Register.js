@@ -19,7 +19,6 @@ const Register = (props) => {
     const [icEye, setIcEye] = useState('eye-slash');
     const [showPassword, setShowPassword] = useState(true);
     useEffect(() => {
-        // console.log(props.navigation);
     }, [])
     const changePwdType = () => {
         if (showPassword) {
@@ -124,7 +123,7 @@ const Register = (props) => {
             </View>
             <View style={{
                 height: 60,
-                backgroundColor: "#90A4AE",
+                backgroundColor: "#5D4037",
                 marginTop: 40,
                 borderRadius: 10,
                 alignItems: 'center',

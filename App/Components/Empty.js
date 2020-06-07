@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { SafeAreaView, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 const Empty = (props) => {
@@ -10,5 +10,5 @@ const Empty = (props) => {
                 <Text style={{ color: "#9E9E9E", fontSize: 18, paddingTop: 10 }}>Không có dữ liệu</Text>
             </SafeAreaView>
         )
-}
-export default Empty
+};
+export default Empty;

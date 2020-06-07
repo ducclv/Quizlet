@@ -16,8 +16,7 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
     const [icEye, setIcEye] = useState('eye-slash');
     const [showPassword, setShowPassword] = useState(true);
-    useEffect(() => {
-    }, [])
+
     const changePwdType = () => {
         if (showPassword) {
             setIcEye('eye');
@@ -101,14 +100,14 @@ const Login = (props) => {
             </View>
             <View style={{
                 height: 60,
-                backgroundColor: "#90A4AE",
+                backgroundColor: "#5D4037",
                 marginTop: 40,
                 borderRadius: 10,
                 alignItems: 'center',
                 justifyContent: "center"
             }}>
                 <TouchableOpacity
-                    onPress={() => props.navigation.navigate('LoginMainBodyScreen')}
+                    onPress={() => props.navigation.navigate('App')}
                 >
                     <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Đăng nhập</Text>
                 </TouchableOpacity>

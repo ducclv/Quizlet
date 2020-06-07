@@ -70,7 +70,7 @@ const LoginMainBody = (props) => {
                 </Swiper>
                 <View style={{
                     height: 60,
-                    backgroundColor: "#90A4AE",
+                    backgroundColor: "#5D4037",
                     marginTop: 20,
                     marginLeft: 20,
                     marginRight: 20,

@@ -20,7 +20,7 @@ export default class AuthLoading extends Component {
         );
     }
     loadData = async () => {
-        const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+        const isLoggedIn = await AsyncStorage.getItem('isLogin');
         this.props.navigation.navigate(isLoggedIn !== '1' ? 'Auth' : 'App');
     };
 }
