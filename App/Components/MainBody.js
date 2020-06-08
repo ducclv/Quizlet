@@ -35,16 +35,16 @@ const MainBody = (props) => {
                 renderTabBar={() => <TabBar darkMode={darkMode} />}
             >
                 <View tabLabel="Trang chủ" style={styles.tabView}>
-                    <HomeTab {...props} darkMode ={darkMode}/>
+                    <HomeTab {...props} darkMode={darkMode} />
                 </View>
                 <View tabLabel="Tìm kiếm" style={styles.tabView}>
-                    <SearchTab {...props} />
+                    <SearchTab {...props} darkMode={darkMode} />
                 </View>
                 <View tabLabel="Thêm mới" style={styles.tabView}>
-                    <AddTab {...props} />
+                    <AddTab {...props} darkMode={darkMode} />
                 </View>
                 <View tabLabel="Cài đặt" style={styles.tabView}>
-                    <UserTab {...props} />
+                    <UserTab {...props} darkMode={darkMode} setDarkMode={setDarkMode}/>
                 </View>
             </ScrollableTabView>
         </SafeAreaView>

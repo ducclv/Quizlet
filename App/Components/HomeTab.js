@@ -16,9 +16,10 @@ const HomeTab = (props) => {
             <View style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'space-between',
+                justifyContent: 'center',
                 backgroundColor: props.darkMode === false ? "#1976D2" : "#263238",
-                padding: 20
+                padding: 20,
+                elevation: 4,
             }}>
                 <Text style={styles.title}>Trang chủ</Text>
 

@@ -11,6 +11,7 @@ import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-vi
 import SearchTab_Subject from './SearchTab_Subject';
 import SearchTab_Class from './SearchTab_Class';
 import SearchTab_User from './SearchTab_User';
+import SearchTab_TabBar from './SearchTab_TabBar';
 const SearchTab = (props) => {
     const [data, setData] = useState('')
     useEffect(() => {
@@ -34,7 +35,7 @@ const SearchTab = (props) => {
                 style={styles.container}
                 tabBarPosition='top'
                 initialPage={0}
-                renderTabBar={() => <DefaultTabBar />}
+                renderTabBar={() => <SearchTab_TabBar {...props} />}
             >
                 <View tabLabel="HỌC PHẦN" style={styles.tabView}>
                     <SearchTab_Subject {...props} data={data} />

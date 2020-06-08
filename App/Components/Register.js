@@ -121,20 +121,14 @@ const Register = (props) => {
                     <Text style={{ marginTop: 5, color: "#795548" }}>MẬT KHẨU</Text>
                 </View>
             </View>
-            <View style={{
-                height: 60,
-                backgroundColor: "#5D4037",
-                marginTop: 40,
-                borderRadius: 10,
-                alignItems: 'center',
-                justifyContent: "center"
-            }}>
+           
                 <TouchableOpacity
                     onPress={() => props.navigation.navigate('LoginMainBodyScreen')}
+                    style={styles.register}
                 >
                     <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Đăng ký</Text>
                 </TouchableOpacity>
-            </View>
+            
             <View style={{ marginTop: 20, marginBottom: 30, alignItems: 'center' }}>
                 <Text style={{ color: '#795548', fontSize: 16 }}>Bằng việc đăng ký, tôi chấp thuận <Text style={{ color: '#2196F3', fontSize: 18 }}>Điều khoản dịch vụ</Text> và</Text>
                 <Text style={{ color: '#795548', fontSize: 16 }}><Text style={{ color: '#2196F3', fontSize: 18 }}>Chính sách quyền riêng tư</Text> của Quizlet</Text>

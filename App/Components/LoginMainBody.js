@@ -4,12 +4,12 @@ import {
     StatusBar,
     Text,
     ImageBackground,
-    StyleSheet,
     TouchableOpacity,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import styles from './Styles/LoginMainBodyStyles'
 const LoginMainBody = (props) => {
     return (
         <View style={styles.container}>
@@ -68,69 +68,24 @@ const LoginMainBody = (props) => {
                         <Text style={styles.text}>chủ đề bất kỳ, cho lớp học bất kỳ.</Text>
                     </View>
                 </Swiper>
-                <View style={{
-                    height: 60,
-                    backgroundColor: "#5D4037",
-                    marginTop: 20,
-                    marginLeft: 20,
-                    marginRight: 20,
-                    borderRadius: 10,
-                    alignItems: 'center',
-                    justifyContent: "center"
-                }}>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('RegisterScreen')}>
-                        <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Đăng ký miễn phí</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{
-                    height: 60,
-                    backgroundColor: "transparent",
-                    marginLeft: 20,
-                    marginRight: 20,
-                    marginBottom: 20,
-                    borderRadius: 10,
-                    alignItems: 'center',
-                    justifyContent: "center"
-                }}>
-                    <TouchableOpacity onPress={()=>props.navigation.navigate('LoginScreen')}>
-                        <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Hoặc đăng nhập</Text>
-                    </TouchableOpacity>
-                </View>
+
+                <TouchableOpacity
+                    onPress={() => props.navigation.navigate('RegisterScreen')}
+                    style={styles.register}
+                >
+                    <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Đăng ký miễn phí</Text>
+                </TouchableOpacity>
+
+
+                <TouchableOpacity
+                    onPress={() => props.navigation.navigate('LoginScreen')}
+                    style={styles.login}
+                >
+                    <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Hoặc đăng nhập</Text>
+                </TouchableOpacity>
+
             </ImageBackground>
         </View>
     )
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: "column"
-    },
-    image: {
-        flex: 1,
-        resizeMode: "cover",
-        justifyContent: "center"
-    },
-    slide1: {
-        flex: 1,
-        alignItems: 'center',
-        marginTop: 50
-    },
-    slide2: {
-        flex: 1,
-    },
-    slide3: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    title: {
-        color: '#EEEEEE',
-        fontSize: 60,
-        fontWeight: 'bold',
-        marginBottom: 15,
-    },
-    text: {
-        color: '#212121',
-        fontSize: 18,
-    }
-});
 export default withNavigation(LoginMainBody);

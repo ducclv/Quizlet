@@ -67,7 +67,7 @@ const Login = (props) => {
                 <View style={{ marginTop: 25 }}>
                     <Text style={styles.text}>HOẶC ĐĂNG NHẬP BẰNG TÊN NGƯỜI DÙNG CỦA BẠN</Text>
                 </View>
-             
+
                 <View style={{ marginTop: 10 }}>
                     <TextInput
                         style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, textDecorationLine: 'none' }}
@@ -98,20 +98,21 @@ const Login = (props) => {
                     <Text style={{ marginTop: 5, color: "#795548" }}>MẬT KHẨU</Text>
                 </View>
             </View>
-            <View style={{
-                height: 60,
-                backgroundColor: "#5D4037",
-                marginTop: 40,
-                borderRadius: 10,
-                alignItems: 'center',
-                justifyContent: "center"
-            }}>
-                <TouchableOpacity
-                    onPress={() => props.navigation.navigate('App')}
-                >
-                    <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Đăng nhập</Text>
-                </TouchableOpacity>
-            </View>
+
+            <TouchableOpacity
+                onPress={() => props.navigation.navigate('App')}
+                style={{
+                    height: 60,
+                    backgroundColor: "#5D4037",
+                    marginTop: 40,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: "center"
+                }}
+            >
+                <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Đăng nhập</Text>
+            </TouchableOpacity>
+
             <View style={{ marginTop: 20, marginBottom: 50, alignItems: 'center' }}>
                 <Text style={{ color: '#795548', fontSize: 16 }}>Quên <Text style={{ color: '#2196F3', fontSize: 18 }}>tên người dùng </Text> hoặc <Text style={{ color: '#2196F3', fontSize: 18 }}>mật khẩu?</Text></Text>
             </View>
