@@ -114,11 +114,11 @@ const Login = (props) => {
             </TouchableOpacity>
 
             <View style={{ marginTop: 20, marginBottom: 50, alignItems: 'center' }}>
-                <Text style={{ color: '#795548', fontSize: 16 }}>Quên <Text style={{ color: '#2196F3', fontSize: 18 }}>tên người dùng </Text> hoặc <Text style={{ color: '#2196F3', fontSize: 18 }}>mật khẩu?</Text></Text>
+                <Text style={{ color: '#795548', fontSize: 16 }}>Quên <Text style={{ color: '#2196F3', fontSize: 16 }}>tên người dùng </Text> hoặc <Text style={{ color: '#2196F3', fontSize: 16 }}>mật khẩu?</Text></Text>
             </View>
             <View style={{ marginTop: 20, marginBottom: 30, alignItems: 'center' }}>
-                <Text style={{ color: '#795548', fontSize: 16 }}>Bằng việc đăng nhập, tôi chấp thuận <Text style={{ color: '#2196F3', fontSize: 18 }}>Điều khoản dịch vụ</Text> và</Text>
-                <Text style={{ color: '#795548', fontSize: 16 }}><Text style={{ color: '#2196F3', fontSize: 18 }}>Chính sách quyền riêng tư</Text> của Quizlet</Text>
+                <Text style={{ color: '#795548', fontSize: 12 }}>Bằng việc đăng nhập, tôi chấp thuận <Text style={{ color: '#2196F3', fontSize: 12 }}>Điều khoản dịch vụ</Text> và</Text>
+                <Text style={{ color: '#795548', fontSize: 12 }}><Text style={{ color: '#2196F3', fontSize: 12 }}>Chính sách quyền riêng tư</Text> của Quizlet</Text>
             </View>
         </ScrollView>
     )

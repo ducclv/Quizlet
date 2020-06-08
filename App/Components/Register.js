@@ -130,8 +130,8 @@ const Register = (props) => {
                 </TouchableOpacity>
             
             <View style={{ marginTop: 20, marginBottom: 30, alignItems: 'center' }}>
-                <Text style={{ color: '#795548', fontSize: 16 }}>Bằng việc đăng ký, tôi chấp thuận <Text style={{ color: '#2196F3', fontSize: 18 }}>Điều khoản dịch vụ</Text> và</Text>
-                <Text style={{ color: '#795548', fontSize: 16 }}><Text style={{ color: '#2196F3', fontSize: 18 }}>Chính sách quyền riêng tư</Text> của Quizlet</Text>
+                <Text style={{ color: '#795548', fontSize: 12 }}>Bằng việc đăng ký, tôi chấp thuận <Text style={{ color: '#2196F3', fontSize: 14 }}>Điều khoản dịch vụ</Text> và</Text>
+                <Text style={{ color: '#795548', fontSize: 12 }}><Text style={{ color: '#2196F3', fontSize: 14 }}>Chính sách quyền riêng tư</Text> của Quizlet</Text>
             </View>
         </ScrollView>
     )
