@@ -5,7 +5,7 @@ import RegisterScreen from '../Containers/RegisterScreen';
 import LoginScreen from '../Containers/LoginScreen';
 import MainBodyScreen from '../Containers/MainBodyScreen';
 import AuthLoadingScreen from '../Containers/AuthLoadingScreen';
-
+import HomeTab_CoursesScreen from '../Containers/HomeTab_CoursesScreen';
 const AuthStack = createStackNavigator(
         {
                 LoginMainBodyScreen: { screen: LoginMainBodyScreen },
@@ -21,12 +21,13 @@ const AuthStack = createStackNavigator(
 const AppNavigator = createStackNavigator(
         {
                 MainBodyScreen: { screen: MainBodyScreen },
+                HomeTab_CoursesScreen: { screen: HomeTab_CoursesScreen },
         },
         {
                 initialRouteName: 'MainBodyScreen',
                 defaultNavigationOptions: { headerShown: false }
         }
-)
+);
 
 export default createAppContainer(
         createSwitchNavigator(
