@@ -11,12 +11,17 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './Styles/RegisterStyles';
+import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
+
 const Login = (props) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [icEye, setIcEye] = useState('eye-slash');
     const [showPassword, setShowPassword] = useState(true);
-
+    useEffect(() => {
+        return () => {
+        }
+    });
     const changePwdType = () => {
         if (showPassword) {
             setIcEye('eye');
@@ -28,6 +33,23 @@ const Login = (props) => {
     };
     const handlePassword = (password) => {
         setPassword(password)
+    };
+    const loginWithFB = () => {
+        LoginManager.logInWithPermissions(["public_profile"]).then(
+            (result) => {
+                if (result.isCancelled) {
+                    console.log("Login cancelled");
+                } else {
+                    console.log(
+                        "Login success with permissions: " +
+                        result.grantedPermissions.toString()
+                    );
+                }
+            },
+            (error) => {
+                console.log("Login fail with error: " + error);
+            }
+        );
     };
 
     return (
@@ -53,7 +75,9 @@ const Login = (props) => {
                             <Text style={{ fontWeight: 'bold', fontSize: 18, marginLeft: 20 }}>Google</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{ borderColor: '#795548', borderWidth: 2, padding: 10, flex: 0.5, marginLeft: 15 }}>
+                    <TouchableOpacity style={{ borderColor: '#795548', borderWidth: 2, padding: 10, flex: 0.5, marginLeft: 15 }}
+                        onPress={() => loginWithFB()}
+                    >
                         <View style={{
                             flexDirection: 'row',
                             justifyContent: 'center',
@@ -63,6 +87,28 @@ const Login = (props) => {
                             <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 18 }}>Facebook</Text>
                         </View>
                     </TouchableOpacity>
+                    {/* <View>
+                        <LoginButton
+                            onLoginFinished={
+                                (error, result) => {
+                                    console.log(error)
+                                    console.log(result)
+                                    if (error) {
+                                        console.log("login has error: " + result.error);
+                                    } else if (result.isCancelled) {
+                                        console.log("login is cancelled.");
+                                    } else {
+                                        console.log('success');
+                                        AccessToken.getCurrentAccessToken().then(
+                                            (data) => {
+                                                console.log(data.accessToken.toString())
+                                            }
+                                        )
+                                    }
+                                }
+                            }
+                            onLogoutFinished={() => console.log("logout.")} />
+                    </View> */}
                 </View>
                 <View style={{ marginTop: 25 }}>
                     <Text style={styles.text}>HOẶC ĐĂNG NHẬP BẰNG TÊN NGƯỜI DÙNG CỦA BẠN</Text>

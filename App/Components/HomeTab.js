@@ -3,7 +3,8 @@ import {
     ScrollView,
     View,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    FlatList,
 } from 'react-native';
 import styles from './Styles/HomeTabStyles';
 const HomeTab = (props) => {
