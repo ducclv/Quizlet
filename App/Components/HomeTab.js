@@ -16,11 +16,11 @@ const HomeTab = (props) => {
 
     const renderItem = ({ item, index }) => {
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>props.navigation.navigate('CourseScreen')}>
                 <View style={{
                     backgroundColor: props.darkMode == false ? "#F5F5F5" : "#263238",
                     padding: 20,
-                    marginVertical: 10,
+                    marginVertical: 5,
                     marginHorizontal: 10,
                     elevation: 5,
                 }}>
@@ -40,7 +40,6 @@ const HomeTab = (props) => {
                             <Text>image</Text>
                         </View>
                     </View>
-
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                         <Avatar
                             rounded
@@ -68,7 +67,7 @@ const HomeTab = (props) => {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginLeft: 10, marginRight: 10, marginBottom: 10 }}>
                 <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Học phần</Text>
                 <TouchableOpacity onPress={() => props.navigation.navigate('HomeTab_CoursesScreen')}>
-                    <Text style={{ color: '#00838F' }}>Xem tất cả  ></Text>
+                    <Text style={{ color: '#00838F' }}>Xem tất cả  &gt;</Text>
                 </TouchableOpacity>
             </View>
             <FlatList

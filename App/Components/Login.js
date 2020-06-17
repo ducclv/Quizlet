@@ -12,6 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './Styles/RegisterStyles';
 import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
+import AsyncStorage from '@react-native-community/async-storage'
 
 const Login = (props) => {
     const [userName, setUserName] = useState('');
@@ -34,6 +35,10 @@ const Login = (props) => {
     const handlePassword = (password) => {
         setPassword(password)
     };
+    const handleLogin = async ()=>{
+        await AsyncStorage.setItem('isLogin', '1')
+        props.navigation.navigate('App')
+    }
     const loginWithFB = () => {
         LoginManager.logInWithPermissions(["public_profile"]).then(
             (result) => {
@@ -146,7 +151,7 @@ const Login = (props) => {
             </View>
 
             <TouchableOpacity
-                onPress={() => props.navigation.navigate('App')}
+                onPress={() => handleLogin()}
                 style={{
                     height: 60,
                     backgroundColor: "#5D4037",

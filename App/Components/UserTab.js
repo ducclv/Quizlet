@@ -20,6 +20,10 @@ const UserTab = (props) => {
         props.setDarkMode(value)
         await AsyncStorage.setItem('theme', `${value}`)
     }
+    const handleLogout = async () => {
+        await AsyncStorage.setItem('isLogin', '0');
+        props.navigation.navigate('Auth');
+    }
     return (
         <ScrollView style={{ flex: 1, backgroundColor: props.darkMode == false ? "#EEEEEE" : "#212121" }}>
             <View style={{
@@ -113,9 +117,11 @@ const UserTab = (props) => {
             <TouchableOpacity style={{
                 backgroundColor: '#FAFAFA',
                 marginTop: 10,
-                marginBottom:10,
+                marginBottom: 10,
                 padding: 20,
-            }}>
+            }}
+                onPress={() => handleLogout()}
+            >
                 <Text style={{ fontSize: 20, fontWeight: '900' }}>Đăng xuất</Text>
             </TouchableOpacity>
         </ScrollView>

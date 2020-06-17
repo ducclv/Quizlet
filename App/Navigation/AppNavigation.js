@@ -6,6 +6,7 @@ import LoginScreen from '../Containers/LoginScreen';
 import MainBodyScreen from '../Containers/MainBodyScreen';
 import AuthLoadingScreen from '../Containers/AuthLoadingScreen';
 import HomeTab_CoursesScreen from '../Containers/HomeTab_CoursesScreen';
+import CourseScreen from '../Containers/CourseScreen';
 const AuthStack = createStackNavigator(
         {
                 LoginMainBodyScreen: { screen: LoginMainBodyScreen },
@@ -22,6 +23,8 @@ const AppNavigator = createStackNavigator(
         {
                 MainBodyScreen: { screen: MainBodyScreen },
                 HomeTab_CoursesScreen: { screen: HomeTab_CoursesScreen },
+                CourseScreen: {screen: CourseScreen},
+
         },
         {
                 initialRouteName: 'MainBodyScreen',
