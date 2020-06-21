@@ -5,7 +5,6 @@ import {
     TouchableOpacity,
     SafeAreaView,
     TextInput,
-    FlatList,
     AsyncStorage,
     Dimensions
 } from "react-native";
@@ -14,7 +13,7 @@ import { Icon } from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './Styles/LearnStyles';
 const width = Dimensions.get('window').width
-const Learn = (props) => {
+const Course_Learn = (props) => {
     const [darkMode, setDarkMode] = useState(false);
     const [data, setData] = useState([]);
     const [dataSource, setDataSource] = useState([]);
@@ -75,7 +74,7 @@ const Learn = (props) => {
                 </View>
                 <View>
                     <Text style={styles.title}>2</Text>
-                    <MaterialCommunityIcons name='check-all' size={24} color='#F5F5F5' type="" style={{ marginLeft: -5 }} />
+                    <Icon name='check-all' size={24} color='#F5F5F5' type="material-community" containerStyle={{ marginLeft: -5 }} />
                 </View>
                 <TouchableOpacity onPress={() => props.navigation.goBack()}>
                     <Icon name='sliders' size={23} color='#F5F5F5' type="font-awesome" />
@@ -111,4 +110,4 @@ const dataTest = [
         answer: "answer test 3"
     }
 ]
-export default Learn;
+export default Course_Learn;

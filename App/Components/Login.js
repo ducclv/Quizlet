@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './Styles/RegisterStyles';
-import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
 import AsyncStorage from '@react-native-community/async-storage'
 import { HOST, requestPOST } from '../Services/Servies';
 const Login = (props) => {
@@ -102,28 +101,6 @@ const Login = (props) => {
                             <Text style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 18 }}>Facebook</Text>
                         </View>
                     </TouchableOpacity>
-                    {/* <View>
-                        <LoginButton
-                            onLoginFinished={
-                                (error, result) => {
-                                    console.log(error)
-                                    console.log(result)
-                                    if (error) {
-                                        console.log("login has error: " + result.error);
-                                    } else if (result.isCancelled) {
-                                        console.log("login is cancelled.");
-                                    } else {
-                                        console.log('success');
-                                        AccessToken.getCurrentAccessToken().then(
-                                            (data) => {
-                                                console.log(data.accessToken.toString())
-                                            }
-                                        )
-                                    }
-                                }
-                            }
-                            onLogoutFinished={() => console.log("logout.")} />
-                    </View> */}
                 </View>
                 <View style={{ marginTop: 25 }}>
                     <Text style={styles.text}>HOẶC ĐĂNG NHẬP BẰNG TÊN NGƯỜI DÙNG CỦA BẠN</Text>

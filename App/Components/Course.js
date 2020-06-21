@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     FlatList,
     Dimensions,
-    Image,
     ImageBackground,
     ToastAndroid
 } from 'react-native';
@@ -14,7 +13,7 @@ import styles from './Styles/CourseStyles';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Icon } from 'react-native-elements';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import FlipCard from 'react-native-flip-card'
+import FlipCard from 'react-native-flip-card';
 
 const Course = (props) => {
     const [darkMode, setDarkMode] = useState(false);
@@ -52,28 +51,23 @@ const Course = (props) => {
 
     const renderItem = ({ item, index }) => {
         return (
-            <View >
+            <View style={{ flex: 1 }}>
                 <FlipCard style={{
                     backgroundColor: "#fff",
-                    height: 200,
+                    flex: 1,
                     marginLeft: 30,
                     marginRight: 30,
-                    marginBottom: 1,
+                    marginBottom: 2,
                     padding: 40,
                     elevation: 6,
                 }}>
-                    <View style={styles.face}>
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={styles.text}>{item.content}</Text>
                     </View>
-                    <View style={styles.back}>
+                    <View >
                         <Text style={styles.text}>{item.answer}</Text>
                     </View>
                 </FlipCard>
-                <View style={{ alignItems: 'flex-end', marginRight: 30, marginTop: -40, padding: 10 }}>
-                    <TouchableOpacity onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
-                        <Icon name="maximize" type="feather" size={24} color="#1976D2" />
-                    </TouchableOpacity>
-                </View>
             </ View>
         );
     }
@@ -153,6 +147,8 @@ const Course = (props) => {
                             sliderWidth={sliderWidth}
                             itemWidth={itemWidth}
                             onSnapToItem={(index) => setActiveSlide(index)}
+                            layout={'default'}
+                            layoutCardOffset={`9`}
                         />
                         {pagination()}
                         <View style={{ padding: 20, backgroundColor: '#fff' }}>
@@ -175,7 +171,6 @@ const Course = (props) => {
                                     <Icon name="download-cloud" type="feather" color="#1976D2" />
                                 </TouchableOpacity>
                             </View>
-
                             <View style={{ flexDirection: 'row', alignSelf: 'stretch', justifyContent: 'center', top: 20 }}>
                                 <View
                                     style={{
@@ -186,7 +181,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4
                                     }}>
-                                    <TouchableOpacity onPress={()=>props.navigation.navigate('LearnScreen')}
+                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_LearnScreen')}
                                         style={{ padding: 20 }}>
                                         <Icon name="leanpub" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={34} />
                                         <Text style={{
@@ -209,7 +204,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4,
                                     }}>
-                                    <TouchableOpacity
+                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_RememberCardScreen')}
                                         style={{ padding: 20 }}>
                                         <Icon name="list-alt" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={35} style={styles.icon} />
                                         <Text style={{
@@ -224,7 +219,6 @@ const Course = (props) => {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-
                             <View style={{ flexDirection: 'row', alignSelf: 'stretch', justifyContent: 'center', top: 20 }}>
                                 <View
                                     style={{
@@ -302,7 +296,6 @@ const Course = (props) => {
                                     <Text style={{ color: '#009688' }}>Thứ tự gốc</Text>
                                 </TouchableOpacity>
                             </View>
-
                             <FlatList
                                 data={data}
                                 renderItem={renderItemCard}

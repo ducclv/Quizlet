@@ -7,8 +7,9 @@ import MainBodyScreen from '../Containers/MainBodyScreen';
 import AuthLoadingScreen from '../Containers/AuthLoadingScreen';
 import HomeTab_CoursesScreen from '../Containers/HomeTab_CoursesScreen';
 import CourseScreen from '../Containers/CourseScreen';
-import RememberCardScreen from '../Containers/RememberCardScreen';
-import LearnScreen from '../Containers/LearnScreen';
+import Course_LearnScreen from '../Containers/Course_LearnScreen';
+import Course_RememberCardScreen from '../Containers/Course_RememberCardScreen';
+
 const AuthStack = createStackNavigator(
         {
                 LoginMainBodyScreen: { screen: LoginMainBodyScreen },
@@ -26,10 +27,8 @@ const AppNavigator = createStackNavigator(
                 MainBodyScreen: { screen: MainBodyScreen },
                 HomeTab_CoursesScreen: { screen: HomeTab_CoursesScreen },
                 CourseScreen: { screen: CourseScreen },
-                LearnScreen: { screen: LearnScreen },
-                RememberCardScreen: { screen: RememberCardScreen },
-
-
+                Course_LearnScreen: { screen: Course_LearnScreen },
+                Course_RememberCardScreen: { screen: Course_RememberCardScreen },
         },
         {
                 initialRouteName: 'MainBodyScreen',
