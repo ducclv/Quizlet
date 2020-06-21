@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const HOST = 'http://42.112.17.55:8888/backendapp'
+export const HOST = 'http://42.112.17.55:8888/quizletbackend'
 
 export const requestGET = async(URL) => {
     return await axios({

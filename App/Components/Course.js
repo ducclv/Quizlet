@@ -127,7 +127,7 @@ const Course = (props) => {
                     color: '#fff',
                     fontWeight: 'bold',
                     fontSize: 20,
-                }}>Toan</Text>
+                }}>TOAN</Text>
                 <View style={{
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -186,7 +186,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4
                                     }}>
-                                    <TouchableOpacity
+                                    <TouchableOpacity onPress={()=>props.navigation.navigate('LearnScreen')}
                                         style={{ padding: 20 }}>
                                         <Icon name="leanpub" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={34} />
                                         <Text style={{

@@ -16,22 +16,12 @@ import {
   StatusBar,
 } from 'react-native';
 
-
-
 const App = () => {
-
-  useEffect(() => {
-    return () => {
-    }
-  });
-  
+  useEffect(() => { return () => { } });
   return (
     <>
-     
     </>
   );
 };
-
-
 
 export default App;

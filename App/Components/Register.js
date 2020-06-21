@@ -8,9 +8,11 @@ import {
     Image,
     TextInput,
     ScrollView,
+    ToastAndroid
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './Styles/RegisterStyles';
+import { HOST, requestPOST } from '../Services/Servies';
 const Register = (props) => {
     const [dob, setDob] = useState('');
     const [email, setEmail] = useState('');
@@ -33,6 +35,19 @@ const Register = (props) => {
         setPassword(password)
     };
 
+    const handleRegister = async () => {
+        var newData = {
+            username: email,
+            password: password,
+            screen_name: userName,
+            birthday: dob
+        }
+        var postData = await requestPOST(`${HOST}/users/add`, newData).then(res => { return res })
+        if (postData.status === true) {
+            props.navigation.navigate('LoginMainBodyScreen')
+        }
+        ToastAndroid.show(`${postData.message}`, ToastAndroid.SHORT)
+    }
     return (
         <ScrollView style={styles.container}>
             <StatusBar barStyle="dark-content" backgroundColor='#673AB7' />
@@ -121,14 +136,14 @@ const Register = (props) => {
                     <Text style={{ marginTop: 5, color: "#795548" }}>MẬT KHẨU</Text>
                 </View>
             </View>
-           
-                <TouchableOpacity
-                    onPress={() => props.navigation.navigate('LoginMainBodyScreen')}
-                    style={styles.register}
-                >
-                    <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Đăng ký</Text>
-                </TouchableOpacity>
-            
+
+            <TouchableOpacity
+                onPress={() => handleRegister()}
+                style={styles.register}
+            >
+                <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Đăng ký</Text>
+            </TouchableOpacity>
+
             <View style={{ marginTop: 20, marginBottom: 30, alignItems: 'center' }}>
                 <Text style={{ color: '#795548', fontSize: 12 }}>Bằng việc đăng ký, tôi chấp thuận <Text style={{ color: '#2196F3', fontSize: 14 }}>Điều khoản dịch vụ</Text> và</Text>
                 <Text style={{ color: '#795548', fontSize: 12 }}><Text style={{ color: '#2196F3', fontSize: 14 }}>Chính sách quyền riêng tư</Text> của Quizlet</Text>

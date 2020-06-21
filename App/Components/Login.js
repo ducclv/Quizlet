@@ -8,12 +8,13 @@ import {
     Image,
     TextInput,
     ScrollView,
+    ToastAndroid
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './Styles/RegisterStyles';
 import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
 import AsyncStorage from '@react-native-community/async-storage'
-
+import { HOST, requestPOST } from '../Services/Servies';
 const Login = (props) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -35,9 +36,18 @@ const Login = (props) => {
     const handlePassword = (password) => {
         setPassword(password)
     };
-    const handleLogin = async ()=>{
-        await AsyncStorage.setItem('isLogin', '1')
-        props.navigation.navigate('App')
+    const handleLogin = async () => {
+        var newData = {
+            username: userName,
+            password: password
+        }
+        var postData = await requestPOST(`${HOST}/users/login`, newData).then(res => { return res })
+        if (postData.status === true) {
+            await AsyncStorage.setItem('isLogin', '1')
+        }
+        else ToastAndroid.show(`${postData.message}`, ToastAndroid.LONG)
+        props.navigation.navigate('AuthLoading')
+
     }
     const loginWithFB = () => {
         LoginManager.logInWithPermissions(["public_profile"]).then(
@@ -124,7 +134,7 @@ const Login = (props) => {
                         style={{ height: 40, borderColor: 'gray', borderBottomWidth: 1, textDecorationLine: 'none' }}
                         onChangeText={userName => setUserName(userName)}
                         value={userName}
-                        placeholder="Nhập tên người dùng của bạn"
+                        placeholder="email@example.com"
                     />
                     <Text style={{ marginTop: 5, color: "#795548" }}>TÊN NGƯỜI DÙNG</Text>
                 </View>
