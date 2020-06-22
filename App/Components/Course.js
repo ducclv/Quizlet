@@ -229,7 +229,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4
                                     }}>
-                                    <TouchableOpacity
+                                    <TouchableOpacity onPress={()=>props.navigation.navigate('Course_WriteScreen')}
                                         style={{ padding: 10 }}>
                                         <Icon name="edit" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={34} />
                                         <Text style={{

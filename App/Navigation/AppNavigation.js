@@ -9,7 +9,7 @@ import HomeTab_CoursesScreen from '../Containers/HomeTab_CoursesScreen';
 import CourseScreen from '../Containers/CourseScreen';
 import Course_LearnScreen from '../Containers/Course_LearnScreen';
 import Course_RememberCardScreen from '../Containers/Course_RememberCardScreen';
-
+import Course_WriteScreen from '../Containers/Course_WriteScreen';
 const AuthStack = createStackNavigator(
         {
                 LoginMainBodyScreen: { screen: LoginMainBodyScreen },
@@ -29,6 +29,7 @@ const AppNavigator = createStackNavigator(
                 CourseScreen: { screen: CourseScreen },
                 Course_LearnScreen: { screen: Course_LearnScreen },
                 Course_RememberCardScreen: { screen: Course_RememberCardScreen },
+                Course_WriteScreen: { screen: Course_WriteScreen }
         },
         {
                 initialRouteName: 'MainBodyScreen',
