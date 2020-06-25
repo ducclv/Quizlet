@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Course from '../Components/Course';
 const CourseScreen = (props) => {
     return (

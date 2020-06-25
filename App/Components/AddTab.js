@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Styles/AddTabStyles'
+import styles from './Styles/AddTabStyles';
 import {
     View,
     Text,
     SafeAreaView,
     TouchableOpacity,
     ImageBackground,
-} from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import * as Animatable from 'react-native-animatable'
+} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import * as Animatable from 'react-native-animatable';
 
 const AddTab = (props) => {
     return (
@@ -43,7 +43,7 @@ const AddTab = (props) => {
                                     margin: 5
                                 }}>
                                 <TouchableOpacity
-                                    // onPress={() => props.navigation.navigate('BookmarkQuestionList')} 
+                                    onPress={() => props.navigation.navigate('AddTab_CourseScreen')} 
                                     style={{ padding: 20 }}>
                                     <Icon name="wpforms" color={props.darkMode == false ? "#616161" : "#EEEEEE"} size={34} style={styles.icon} />
                                     <Text style={{
@@ -109,4 +109,4 @@ const AddTab = (props) => {
         </SafeAreaView>
     )
 }
-export default AddTab
+export default AddTab;

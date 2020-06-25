@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import SearchTab_TabBar from './SearchTab_TabBar';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
-const HomeTab_Courses = (props) => {
+const HomeTab_Course = (props) => {
     const [darkMode, setDarkMode] = useState(false)
     useEffect(() => {
         getTheme();
@@ -68,4 +68,4 @@ const HomeTab_Courses = (props) => {
     )
 };
 
-export default withNavigation(HomeTab_Courses);
+export default withNavigation(HomeTab_Course);

@@ -252,7 +252,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4,
                                     }}>
-                                    <TouchableOpacity
+                                    <TouchableOpacity onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}
                                         style={{ padding: 10 }}>
                                         <Icon name="credit-card" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={35} style={styles.icon} />
                                         <Text style={{
@@ -275,7 +275,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4,
                                     }}>
-                                    <TouchableOpacity
+                                    <TouchableOpacity onPress={()=>props.navigation.navigate('Course_TestScreen')}
                                         style={{ padding: 10 }}>
                                         <Icon name="file-text-o" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={35} style={styles.icon} />
                                         <Text style={{
@@ -317,6 +317,14 @@ const data = [
     {
         content: "Muốn tìm một phần mấy của một số, ta lấy số đó chia cho mấy phần",
         answer: "148"
+    },
+    {
+        content: "question test2",
+        answer: "answer test 2"
+    },
+    {
+        content: "question test3",
+        answer: "answer test 3"
     }
 ]
 export default Course;

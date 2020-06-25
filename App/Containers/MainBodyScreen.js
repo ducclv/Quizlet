@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MainBody from '../Components/MainBody';
 const MainBodyScreen = (props) => {
     return (

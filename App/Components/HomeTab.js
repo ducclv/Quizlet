@@ -66,7 +66,7 @@ const HomeTab = (props) => {
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginLeft: 10, marginRight: 10, marginBottom: 10 }}>
                 <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Học phần</Text>
-                <TouchableOpacity onPress={() => props.navigation.navigate('HomeTab_CoursesScreen')}>
+                <TouchableOpacity onPress={() => props.navigation.navigate('HomeTab_CourseScreen')}>
                     <Text style={{ color: '#00838F' }}>Xem tất cả  &gt;</Text>
                 </TouchableOpacity>
             </View>

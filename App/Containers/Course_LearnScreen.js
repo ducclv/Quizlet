@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Course_Learn from '../Components/Course_Learn';
 const Course_LearnScreen = (props) => {
     return (

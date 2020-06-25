@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Course_RememberCard from '../Components/Course_RememberCard';
 const Course_RememberCardScreen = (props) => {
     return (

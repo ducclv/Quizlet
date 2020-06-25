@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AuthLoading from '../Components/AuthLoading';
 const AuthLoadingScreen = (props) => {
     return (

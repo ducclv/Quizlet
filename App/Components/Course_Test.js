@@ -5,11 +5,11 @@ import {
     TouchableOpacity,
     Dimensions
 } from 'react-native';
-import styles from './Styles/Course_WriteStyles';
 import { Icon } from 'react-native-elements';
+import styles from './Styles/Course_TestStyles';
 import * as Progress from 'react-native-progress';
 
-const Course_Write = (props) => {
+const Course_Test = (props) => {
     const [darkMode, setDarkMode] = useState(false);
     const [progress, setProgress] = useState(1);
     const width = Dimensions.get('window').width;
@@ -29,19 +29,23 @@ const Course_Write = (props) => {
     const fetchData = async () => {
         setData(dataTest[index])
     }
-    const handleKnow = () => {
+    const handleTrue = () => {
         var newIndex = index;
         if (newIndex != dataTest.length - 1) {
             newIndex++;
             setIndex(newIndex)
         }
+        else props.navigation.navigate('Course_Test_ResultScreen');
+
     }
-    const handleUnknow = () => {
+    const handleFalse = () => {
         var newIndex = index;
         if (newIndex != dataTest.length - 1) {
             newIndex++;
             setIndex(newIndex)
         }
+        else props.navigation.navigate('Course_Test_ResultScreen');
+
     }
     return (
         <View style={styles.container}>
@@ -53,42 +57,36 @@ const Course_Write = (props) => {
                 backgroundColor: darkMode === false ? "#1976D2" : "#263238",
             }}>
                 <TouchableOpacity onPress={() => props.navigation.goBack()}>
-                    <Icon name='md-close' size={24} color='#F5F5F5' type="ionicon" />
+                    <Icon name='md-arrow-back' size={25} color='#F5F5F5' type="ionicon" />
                 </TouchableOpacity>
                 <View>
-                    <Progress.Bar progress={progress} width={width - 120} color="#fff" />
+                    <Progress.Bar progress={progress} width={width - 100} color="#fff" />
                 </View>
-                <TouchableOpacity onPress={() => props.navigation.goBack()}>
-                    <Icon name='sliders' size={23} color='#F5F5F5' type="font-awesome" />
-                </TouchableOpacity>
             </View>
-
-            <View style={{ flex: 1 / 2, padding: 20 }}>
+            <View style={styles.question}>
                 <Text style={styles.title}>{data.question}</Text>
             </View>
-
             <View style={{ flex: 1 / 2, padding: 20 }}>
-                <View style={styles.row}>
-                    <TouchableOpacity onPress={() => handleKnow()}
-                        style={styles.btn}>
-                        <Text style={styles.txt}>Biết</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => handleUnknow()}
-                        style={styles.btn}>
-                        <Text style={styles.txt}>Không biết</Text>
-                    </TouchableOpacity>
-                </View>
-
                 <View style={styles.answer}>
                     <Text style={styles.title}>{data.answer}</Text>
+                </View>
+                <View style={styles.row}>
+                    <TouchableOpacity onPress={() => handleTrue()}
+                        style={styles.btn}>
+                        <Text style={styles.txt}>Đúng</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => handleFalse()}
+                        style={styles.btn}>
+                        <Text style={styles.txt}>Sai</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
     )
 }
 
-export default Course_Write;
+export default Course_Test;
 
 const dataTest = [
     {
