@@ -7,6 +7,8 @@ export default StyleSheet.create({
   text: {
     color: '#616161',
     fontSize: 24,
+    fontWeight: 'bold',
+
   },
   title: {
     color: '#fff',
@@ -24,17 +26,19 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 10,
   },
   containerItem: {
-    flex: 2 / 3,
     marginVertical: 5,
-    marginHorizontal: 40,
+    marginHorizontal: 20,
     elevation: 5,
-    padding: 20,
+    padding: 40,
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width:Dimensions.get('window').width/1.5,
+    height:Dimensions.get('window').height/2,
+    alignItems:'center',
+    justifyContent:'center'
   },
   row: {
-    flexDirection: 'row', justifyContent: 'space-between'
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   btn: {
     elevation: 5,

@@ -49,11 +49,11 @@ const UserTab = (props) => {
                 flexDirection: 'row'
             }}>
                 <View>
-                    <Text style={{ fontSize: 20, fontWeight: '900' }}>Loại tài khoản</Text>
-                    <Text style={{ color: '#607D8B', fontSize: 16 }}>Miễn phí</Text>
+                    <Text style={{ fontSize: 18, fontWeight: '900' }}>Loại tài khoản</Text>
+                    <Text style={{ color: '#607D8B', fontSize: 14 }}>Miễn phí</Text>
                 </View>
                 <View style={{ backgroundColor: '#607D8B', alignSelf: 'center', padding: 10, borderRadius: 10 }}>
-                    <Text style={{ color: '#fff', fontSize: 16, }}>Nâng cấp dùng thử</Text>
+                    <Text style={{ color: '#fff', fontSize: 14, }}>Nâng cấp dùng thử</Text>
                 </View>
             </TouchableOpacity>
             <View style={{
@@ -61,18 +61,18 @@ const UserTab = (props) => {
                 marginTop: 10,
             }}>
                 <TouchableOpacity style={{ padding: 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: '900' }}>Email</Text>
-                    <Text style={{ color: '#607D8B', fontSize: 16, }}>leducuet@gmail.com</Text>
+                    <Text style={{ fontSize: 18, fontWeight: '900' }}>Email</Text>
+                    <Text style={{ color: '#607D8B', fontSize: 14, }}>leducuet@gmail.com</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ padding: 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: '900' }}>Tên người dùng</Text>
-                    <Text style={{ color: '#607D8B', fontSize: 16, }}>Lê Đức</Text>
+                    <Text style={{ fontSize: 18, fontWeight: '900' }}>Tên người dùng</Text>
+                    <Text style={{ color: '#607D8B', fontSize: 14, }}>Lê Đức</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ padding: 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: '900' }}>Quên mật khẩu</Text>
+                    <Text style={{ fontSize: 18, fontWeight: '900' }}>Quên mật khẩu</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ padding: 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: '900' }}>Thông báo</Text>
+                    <Text style={{ fontSize: 18, fontWeight: '900' }}>Thông báo</Text>
                 </TouchableOpacity>
             </View>
             <View style={{
@@ -82,7 +82,7 @@ const UserTab = (props) => {
                 flexDirection: 'row',
                 padding: 20,
             }}>
-                <Text style={{ fontSize: 20, fontWeight: '900' }}>Hình nền ban đêm</Text>
+                <Text style={{ fontSize: 18, fontWeight: '900' }}>Hình nền ban đêm</Text>
                 <Switch
                     onValueChange={toggleSwitch}
                     value={switchValue} />
@@ -92,25 +92,25 @@ const UserTab = (props) => {
                 marginTop: 10,
                 padding: 20,
             }}>
-                <Text style={{ fontSize: 20, fontWeight: '900' }}>Trung tâm hỗ trợ</Text>
+                <Text style={{ fontSize: 18, fontWeight: '900' }}>Trung tâm hỗ trợ</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{
                 backgroundColor: '#FAFAFA',
                 marginTop: 10,
                 padding: 20,
             }}>
-                <Text style={{ fontSize: 20, fontWeight: '900' }}>Đánh giá chúng tôi</Text>
+                <Text style={{ fontSize: 18, fontWeight: '900' }}>Đánh giá chúng tôi</Text>
             </TouchableOpacity>
             <View style={{
                 backgroundColor: '#FAFAFA',
                 marginTop: 10,
             }}>
                 <TouchableOpacity style={{ padding: 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: '900' }}>Giới thiệu</Text>
+                    <Text style={{ fontSize: 18, fontWeight: '900' }}>Giới thiệu</Text>
                 </TouchableOpacity>
                 <View style={{ padding: 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: '900' }}>Phiên bản</Text>
-                    <Text style={{ color: '#607D8B', fontSize: 16, }}>1.0</Text>
+                    <Text style={{ fontSize: 18, fontWeight: '900' }}>Phiên bản</Text>
+                    <Text style={{ color: '#607D8B', fontSize: 14, }}>1.0</Text>
                 </View>
             </View>
 
@@ -122,7 +122,7 @@ const UserTab = (props) => {
             }}
                 onPress={() => handleLogout()}
             >
-                <Text style={{ fontSize: 20, fontWeight: '900' }}>Đăng xuất</Text>
+                <Text style={{ fontSize: 18, fontWeight: '900' }}>Đăng xuất</Text>
             </TouchableOpacity>
         </ScrollView>
     )
