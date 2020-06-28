@@ -20,5 +20,17 @@ export default StyleSheet.create({
     resizeMode: "cover",
     justifyContent: "center"
   },
-
+ row:{
+   flexDirection:"row",
+   alignItems:'center',
+   marginBottom:20,
+   marginTop:20,
+   marginLeft:20,
+ },
+ txt:{
+   fontSize:18,
+   color:'#fff',
+   fontWeight:"bold",
+   marginLeft:20
+ }
 })

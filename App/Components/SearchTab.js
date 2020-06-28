@@ -13,23 +13,23 @@ import SearchTab_Class from './SearchTab_Class';
 import SearchTab_User from './SearchTab_User';
 import SearchTab_TabBar from './SearchTab_TabBar';
 const SearchTab = (props) => {
-    const [data, setData] = useState('')
+    const [keyword, setKeyword] = useState('');
     useEffect(() => {
-        return () => { }
     }, []);
-    const updateSearch = value => {
-        setData(value);
+    const updateSearch = (value) => {
+        setKeyword(value._dispatchInstances.memoizedProps.value);
     };
     return (
         <SafeAreaView style={styles.container}>
             <SearchBar
                 lightTheme
                 placeholder="Tìm kiếm"
-                onChangeText={updateSearch}
-                onClearText={() => setData('')}
-                value={data}
+                onChangeText={(text)=>setKeyword(text)}
+                onClearText={() => setKeyword('')}
+                value={keyword}
                 containerStyle={{ backgroundColor: "#1976D2", margin: -1 }}
                 inputContainerStyle={{ backgroundColor: "#fff" }}
+                onEndEditing={updateSearch}
             />
             <ScrollableTabView
                 style={styles.container}
@@ -38,13 +38,13 @@ const SearchTab = (props) => {
                 renderTabBar={() => <SearchTab_TabBar {...props} />}
             >
                 <View tabLabel="HỌC PHẦN" style={styles.tabView}>
-                    <SearchTab_Subject {...props} data={data} />
+                    <SearchTab_Subject {...props} keyword={keyword} />
                 </View>
                 <View tabLabel="LỚP HỌC" style={styles.tabView}>
-                    <SearchTab_Class {...props} data={data} />
+                    <SearchTab_Class {...props} keyword={keyword} />
                 </View>
                 <View tabLabel="NGƯỜI DÙNG" style={styles.tabView}>
-                    <SearchTab_User {...props} data={data} />
+                    <SearchTab_User {...props} keyword={keyword} />
                 </View>
             </ScrollableTabView>
         </SafeAreaView>

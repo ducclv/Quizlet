@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import {
-    ScrollView,
     View,
     Text,
     TouchableOpacity,
     FlatList,
+    AsyncStorage,
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import styles from './Styles/HomeTabStyles';
 import { Avatar } from 'react-native-elements';
-
+import { HOST, requestGET } from '../Services/Servies';
 const HomeTab = (props) => {
+    const [data, setData] = useState([])
     useEffect(() => {
+        fetchData();
         return () => { }
     }, []);
-
+    const fetchData = async () => {
+        const id = await AsyncStorage.getItem('isLogin');
+        const newData = await requestGET(`${HOST}/lessons/viewMyLesson/${id}`)
+        setData(newData.data.list_lesson)
+    }
     const renderItem = ({ item, index }) => {
         return (
-            <TouchableOpacity onPress={()=>props.navigation.navigate('CourseScreen')}>
+            <TouchableOpacity onPress={() => props.navigation.navigate('CourseScreen',{id:item.id})}>
                 <View style={{
                     backgroundColor: props.darkMode == false ? "#F5F5F5" : "#263238",
                     padding: 20,
@@ -33,12 +40,12 @@ const HomeTab = (props) => {
                                 color: props.darkMode == false ? "#212121" : "#F5F5F5",
                                 fontWeight: 'bold',
                                 fontSize: 18,
-                            }}>{item.subject}</Text>
-                            <Text style={{ fontSize: 12, color: '#795548', marginTop: 3 }}>{item.number} thuật ngữ</Text>
+                            }}>{item.name}</Text>
+                            <Text style={{ fontSize: 12, color: '#795548', marginTop: 3 }}>{item.numb_question} thuật ngữ</Text>
                         </View>
-                        <View>
+                        {/* <View>
                             <Text>image</Text>
-                        </View>
+                        </View> */}
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                         <Avatar
@@ -46,7 +53,7 @@ const HomeTab = (props) => {
                             size="small"
                             source={require('../Images/avatar.jpg')}
                         />
-                        <Text style={{ marginLeft: 10, fontWeight: 'bold' }}>{item.userName}</Text>
+                        <Text style={{ marginLeft: 10, fontWeight: 'bold' }}>{item.creator}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -78,24 +85,5 @@ const HomeTab = (props) => {
         </View>
     )
 };
-const data = [
-    {
-        id: '1',
-        subject: "SPEAKING: TRAVELLING",
-        number: "7",
-        userName: 'quizlette01'
-    },
-    {
-        id: '2',
-        subject: "Toán học",
-        number: "5",
-        userName: 'leducuet',
-    },
-    {
-        id: '3',
-        subject: "Tiếng anh",
-        number: "17",
-        userName: "buihoangnam"
-    }
-]
-export default HomeTab;
+
+export default withNavigation(HomeTab);

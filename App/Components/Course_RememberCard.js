@@ -9,40 +9,60 @@ import {
 import { Icon } from 'react-native-elements';
 import styles from './Styles/Course_RememberStyles';
 import * as Progress from 'react-native-progress';
-import Carousel from 'react-native-snap-carousel';
 import FlipCard from 'react-native-flip-card';
 import CardStack, { Card } from 'react-native-card-stack-swiper';
-
 const width = Dimensions.get('window').width;
-const sliderWidth = Dimensions.get("screen").width;
-const itemWidth = Dimensions.get("screen").width;
 
 export default class RememberCard extends Component {
-    // const[darkMode, setDarkMode] = useState(false);
-    // const[count, setCount] = useState(1);
-    // const[progress, setProgress] = useState(0)
-    // const width = Dimensions.get('window').width;
-    // const sliderWidth = Dimensions.get("screen").width;
-    // const itemWidth = Dimensions.get("screen").width;
-    // useEffect(() => {
-    //     getTheme();
-    // }, [])
     constructor(props) {
         super(props)
         this.state = {
             darkMode: false,
             progress: 0,
+            progressbar: 0,
             count: 1,
+            know: 0,
+            unknow: 0,
+            data: []
         }
     }
-
+    componentDidMount() {
+        this.getTheme()
+        this.setState({ data: this.props.navigation.getParam('data') })
+    }
     getTheme = async () => {
         const theme = await AsyncStorage.getItem('theme')
         if (theme === null) this.setState({ darkMode: false })
         else if (theme === 'true') this.setState({ darkMode: true })
         else if (theme === 'false') this.setState({ darkMode: false })
     };
-    
+
+    handleKnow = () => {
+        var newdata = this.state.know;
+        var newProgress = this.state.progress;
+        var newCount = this.state.count;
+        newdata++;
+        newProgress++;
+        newCount++;
+        this.setState({ know: newdata, progress: newProgress, count: newCount, progressbar: newProgress / this.state.data.length })
+    }
+    handleUnKnow = () => {
+        var newdata = this.state.unknow;
+        var newProgress = this.state.progress;
+        var newCount = this.state.count;
+        newdata++;
+        newProgress++;
+        newCount++;
+        this.setState({ unknow: newdata, progress: newProgress, count: newCount, progressbar: newProgress / this.state.data.length })
+    }
+    handleRefresh = async () => {
+        var newCount = this.state.count;
+        while (newCount != 1) {
+            await this.swiper.goBackFromTop();
+            newCount--;
+        }
+        this.setState({ count: 1, progressbar: 0, progress: 0, know: 0, unknow: 0 })
+    }
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -56,25 +76,25 @@ export default class RememberCard extends Component {
                         <Icon name='md-close' size={24} color='#F5F5F5' type="ionicon" />
                     </TouchableOpacity>
                     <View>
-                        <Text style={styles.title}>{this.state.count}/{data.length}</Text>
+                        <Text style={styles.title}>{this.state.count}/{this.state.data.length}</Text>
                     </View>
                     <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                         <Icon name='question-circle-o' size={24} color='#F5F5F5' type="font-awesome" />
                     </TouchableOpacity>
                 </View>
                 <View style={{ padding: 40 }}>
-                    <Progress.Bar progress={this.state.progress} width={width - 80} />
+                    <Progress.Bar progress={this.state.progressbar} width={width - 80} />
                 </View>
 
                 <CardStack
-                    style={{ flex: 9/10, alignItems: 'center', justifyContent: 'center' }}
+                    style={{ flex: 9 / 10, alignItems: 'center', justifyContent: 'center' }}
                     ref={swiper => { this.swiper = swiper }}
                     disableBottomSwipe={true}
                     disableTopSwipe={true}
-                    onSwipedLeft={(index) => console.log(index)}
-                    onSwipedRight={(index) => console.log(index)}
+                    onSwipedLeft={() => this.handleUnKnow()}
+                    onSwipedRight={() => this.handleKnow()}
                 >
-                    {data.map(item => {
+                    {this.state.data.map(item => {
                         return (
                             <FlipCard
                                 friction={6}
@@ -103,23 +123,23 @@ export default class RememberCard extends Component {
 
                 <View style={[styles.row]}>
                     <View style={[styles.view1, { backgroundColor: '#FF9800' }]}>
-                        <Text>0</Text>
+                        <Text>{this.state.unknow}</Text>
                     </View>
                     <View style={[styles.view2, { backgroundColor: '#4CAF50' }]}>
-                        <Text>2</Text>
+                        <Text>{this.state.know}</Text>
                     </View>
                 </View>
 
                 <View style={[styles.row, { margin: 20 }]}>
-                    <TouchableOpacity style={styles.btn} onPress={()=>this.swiper.swipeLeft()}>
+                    <TouchableOpacity style={styles.btn} onPress={() => this.swiper.swipeLeft()}>
                         <Icon name="corner-up-left" type="feather" size={27} color="#9E9E9E" />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => this.swiper.goBackFromBottom()}
+                        onPress={() => this.handleRefresh()}
                         style={styles.btn}>
-                        <Text style={styles.txt}>Quay lại</Text>
+                        <Text style={styles.txt}>Làm lại</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn} onPress={()=>this.swiper.swipeRight()}>
+                    <TouchableOpacity style={styles.btn} onPress={() => this.swiper.swipeRight()}>
                         <Icon name="corner-up-right" type="feather" size={27} color="#9E9E9E" />
                     </TouchableOpacity>
                 </View>
@@ -127,7 +147,7 @@ export default class RememberCard extends Component {
         )
     }
 }
-const data = [
+const dataTest = [
     {
         question: "Số liền trước của sô 148 là",
         answer: "147"

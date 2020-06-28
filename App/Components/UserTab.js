@@ -9,16 +9,23 @@ import {
 import { Avatar } from 'react-native-elements';
 import styles from './Styles/UserTabStyles';
 import AsyncStorage from '@react-native-community/async-storage'
-
+import { HOST, requestGET } from '../Services/Servies'
 const UserTab = (props) => {
     const [switchValue, setSwitchValue] = useState(false)
+    const [data, setData] = useState({})
     useEffect(() => {
+        fetchData();
         return () => { }
     }, []);
     const toggleSwitch = async (value) => {
         setSwitchValue(value)
         props.setDarkMode(value)
         await AsyncStorage.setItem('theme', `${value}`)
+    }
+    const fetchData = async () => {
+        const id = await AsyncStorage.getItem('isLogin');
+        const newData = await requestGET(`${HOST}/users/getUserById/${id}`);
+        setData(newData.data.user)
     }
     const handleLogout = async () => {
         await AsyncStorage.setItem('isLogin', '0');
@@ -36,9 +43,9 @@ const UserTab = (props) => {
                     source={require('../Images/avatar.jpg')}
                     containerStyle={{ margin: 30 }}
                 />
-                <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Lê Đức</Text>
+                <Text style={{ fontSize: 26, fontWeight: 'bold' }}>{data.screen_name}</Text>
                 <TouchableOpacity style={{ marginTop: 5, marginBottom: 30 }}>
-                    <Text style={{ color: '#607D8B', fontSize: 18 }}>Xem hồ sơ</Text>
+                    <Text style={{ color: '#607D8B', fontSize: 16 }}>Xem hồ sơ</Text>
                 </TouchableOpacity>
             </View>
             <TouchableOpacity style={{
@@ -62,11 +69,11 @@ const UserTab = (props) => {
             }}>
                 <TouchableOpacity style={{ padding: 20 }}>
                     <Text style={{ fontSize: 18, fontWeight: '900' }}>Email</Text>
-                    <Text style={{ color: '#607D8B', fontSize: 14, }}>leducuet@gmail.com</Text>
+                    <Text style={{ color: '#607D8B', fontSize: 14, }}>{data.username}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ padding: 20 }}>
                     <Text style={{ fontSize: 18, fontWeight: '900' }}>Tên người dùng</Text>
-                    <Text style={{ color: '#607D8B', fontSize: 14, }}>Lê Đức</Text>
+                    <Text style={{ color: '#607D8B', fontSize: 14, }}>{data.screen_name}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ padding: 20 }}>
                     <Text style={{ fontSize: 18, fontWeight: '900' }}>Quên mật khẩu</Text>

@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import * as Progress from 'react-native-progress';
 import { Icon } from 'react-native-elements';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './Styles/LearnStyles';
 const width = Dimensions.get('window').width
 const Course_Learn = (props) => {
@@ -20,10 +19,13 @@ const Course_Learn = (props) => {
     const [index, setIndex] = useState(0);
     const [input, setInput] = useState('');
     const [progress, setProgress] = useState(0);
+    const [know, setKnow] = useState(0);
+    const [unknow, setUnknow] = useState(0);
+    const [size, setSize] = useState(0);
     useEffect(() => {
         getTheme();
         fetchData();
-    }, [data, dataSource, index])
+    }, [data, dataSource, index, size, props])
 
     const getTheme = async () => {
         const theme = await AsyncStorage.getItem('theme')
@@ -31,20 +33,36 @@ const Course_Learn = (props) => {
         else if (theme === 'true') setDarkMode(true)
         else if (theme === 'false') setDarkMode(false)
     };
-    const fetchData = async () => {
-        setDataSource(dataTest)
-        setData(dataTest[index])
+    const fetchData = () => {
+        var newData = props.navigation.getParam('data');
+        setSize(newData.length-index);
+        setDataSource(newData);
+        setData(newData[index]);
+        console.log('test')
     }
     const handleChange = (value) => {
         setInput(value)
     }
     const handleSubmit = () => {
         var newIndex = index;
-        if (newIndex != dataTest.length - 1) {
+        var newSize = size;
+        var newKnow = know;
+        var newUnknow = unknow;
+        var newData = props.navigation.getParam('data');
+        if (newIndex != newData.length - 1) {
+            if (newData[newIndex].answer === input) {
+                newKnow++;
+                setKnow(newKnow);
+            } else {
+                newUnknow++;
+                setUnknow(newUnknow);
+            }
             newIndex++;
             setIndex(newIndex);
+            newSize--;
+            setSize(newSize);
+            setProgress(newIndex / newData.length);
             setInput('');
-            setProgress(newIndex/dataTest.length)
         }
         else props.navigation.goBack();
     }
@@ -60,25 +78,22 @@ const Course_Learn = (props) => {
                     <Icon name='md-close' size={24} color='#F5F5F5' type="ionicon" />
                 </TouchableOpacity>
                 <View>
-                    <Text style={styles.title}>0</Text>
+                    <Text style={styles.title}>{size}</Text>
                 </View>
                 <View>
                     <Icon name='arrow-right' size={24} color='#F5F5F5' type="entypo" />
                 </View>
                 <View>
-                    <Text style={styles.title}>1</Text>
-                    <Icon name='check' size={22} color='#F5F5F5' type="MaterialCommunityIcons" containerStyle={{ marginLeft: -5 }} />
+                    <Text style={styles.title}>{unknow}</Text>
+                    <Icon name='close' size={22} color='#F5F5F5' type="material-community" containerStyle={{ marginLeft: -5 }} />
                 </View>
                 <View onPress={() => props.navigation.goBack()}>
                     <Icon name='arrow-right' size={22} color='#F5F5F5' type="entypo" />
                 </View>
                 <View>
-                    <Text style={styles.title}>2</Text>
+                    <Text style={styles.title}>{know}</Text>
                     <Icon name='check-all' size={24} color='#F5F5F5' type="material-community" containerStyle={{ marginLeft: -5 }} />
                 </View>
-                <TouchableOpacity onPress={() => props.navigation.goBack()}>
-                    <Icon name='sliders' size={23} color='#F5F5F5' type="font-awesome" />
-                </TouchableOpacity>
             </View>
             <Progress.Bar progress={progress} width={width} borderRadius={0} />
             <View style={{ flex: 1, padding: 20, justifyContent: 'space-between' }}>
@@ -96,18 +111,5 @@ const Course_Learn = (props) => {
         </SafeAreaView>
     )
 }
-const dataTest = [
-    {
-        question: "so lien truoc so 148 la",
-        answer: "147"
-    },
-    {
-        question: "question test2",
-        answer: "answer test 2"
-    },
-    {
-        question: "question test3",
-        answer: "answer test 3"
-    }
-]
+
 export default Course_Learn;

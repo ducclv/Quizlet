@@ -7,21 +7,31 @@ import {
     FlatList,
     Dimensions,
     ImageBackground,
-    ToastAndroid
+    ToastAndroid,
+    ActivityIndicator
 } from 'react-native';
 import styles from './Styles/CourseStyles';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Icon } from 'react-native-elements';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import FlipCard from 'react-native-flip-card';
-
+import Modal from 'react-native-modal';
+import { HOST, requestGET } from '../Services/Servies';
 const Course = (props) => {
     const [darkMode, setDarkMode] = useState(false);
     const sliderWidth = Dimensions.get("screen").width;
     const itemWidth = Dimensions.get("screen").width;
     const [activeSlide, setActiveSlide] = useState(0);
+    const [data, setData] = useState({});
+    const [words, setWords] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [visibleModal, setVisibleModal] = useState(false)
     useEffect(() => {
+        fetchData();
         getTheme();
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000);
     }, [])
     const getTheme = async () => {
         const theme = await AsyncStorage.getItem('theme')
@@ -29,11 +39,17 @@ const Course = (props) => {
         else if (theme === 'true') setDarkMode(true)
         else if (theme === 'false') setDarkMode(false)
     };
-
+    const fetchData = async () => {
+        var user_id = await AsyncStorage.getItem('isLogin');
+        var id = props.navigation.getParam('id');
+        const newData = await requestGET(`${HOST}/lessons/view/${id}/?user_id=${user_id}`);
+        setData(newData.data)
+        setWords(newData.data.words)
+    }
     const pagination = () => {
         return (
             <Pagination
-                dotsLength={data.length}
+                dotsLength={words.length}
                 activeDotIndex={activeSlide}
                 containerStyle={{ backgroundColor: '#fff', marginBottom: -20 }}
                 dotStyle={{
@@ -62,7 +78,7 @@ const Course = (props) => {
                     elevation: 6,
                 }}>
                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={styles.text}>{item.content}</Text>
+                        <Text style={styles.text}>{item.question}</Text>
                     </View>
                     <View >
                         <Text style={styles.text}>{item.answer}</Text>
@@ -70,7 +86,7 @@ const Course = (props) => {
                 </FlipCard>
             </ View>
         );
-    }
+    };
 
     const renderItemCard = ({ item, index }) => {
         return (
@@ -88,7 +104,7 @@ const Course = (props) => {
                             fontWeight: '900',
                             fontSize: 16,
                         }}>
-                            {item.content}
+                            {item.question}
                         </Text>
 
                         <Text style={{
@@ -104,8 +120,44 @@ const Course = (props) => {
                 </View>
             </View>
         )
+    };
+
+    const renderModal = () => {
+        if (visibleModal == true) {
+            return (
+                <View style={{
+                    backgroundColor: darkMode === false ? "#0D47A1" : "#212121",
+                    justifyContent: 'center',
+                    margin: 20,
+                }}>
+                    <TouchableOpacity style={styles.row} onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
+                        <Icon name='md-share' size={30} color="#fff" type="ionicon" />
+                        <Text style={styles.txt}>Chia sẻ học phần</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.row}>
+                        <Icon name="edit" type="antdesign" size={30} color="#fff" />
+                        <Text style={styles.txt}>Sửa học phần</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.row}>
+                        <Icon name="delete" type="antdesign" size={30} color="#fff" />
+                        <Text style={styles.txt}>Xóa học phần</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', margin: 20 }}
+                        onPress={() => setVisibleModal(false)}
+                    >
+                        <Text style={styles.txt}>Hủy</Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        }
     }
-    return (
+    if (loading) return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <ActivityIndicator />
+            <Text>Đang tải</Text>
+        </View>
+    )
+    else return (
         <View style={styles.container}>
             <View style={{
                 flexDirection: 'row',
@@ -121,19 +173,11 @@ const Course = (props) => {
                     color: '#fff',
                     fontWeight: 'bold',
                     fontSize: 20,
-                }}>TOAN</Text>
-                <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                }}>
-                    <TouchableOpacity onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
-                        <Icon name='md-share' size={25} color='#F5F5F5' type="ionicon" containerStyle={{ marginRight: 20 }} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
-                        <Icon name='more-vert' size={28} color='#F5F5F5' type="MaterialIcons" />
-                    </TouchableOpacity>
-                </View>
+                }}>{data.name}</Text>
+
+                <TouchableOpacity onPress={() => setVisibleModal(true)}>
+                    <Icon name='more-vert' size={28} color='#F5F5F5' type="MaterialIcons" />
+                </TouchableOpacity>
             </View>
             <View style={{ flex: 1 }}>
                 <ImageBackground
@@ -142,7 +186,7 @@ const Course = (props) => {
                 >
                     <ScrollView style={{ flex: 1 }}>
                         <Carousel
-                            data={data}
+                            data={data.words}
                             renderItem={renderItem}
                             sliderWidth={sliderWidth}
                             itemWidth={itemWidth}
@@ -161,10 +205,10 @@ const Course = (props) => {
                                         color: darkMode == false ? "#212121" : "#F5F5F5",
                                         fontWeight: 'bold',
                                         fontSize: 18,
-                                    }}>TOAN</Text>
+                                    }}>{data.name}</Text>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-                                        <Text style={{ fontSize: 12, color: '#795548', marginTop: 3 }}>8 thuật ngữ</Text>
-                                        <Text style={{ marginLeft: 20, fontWeight: 'bold' }}>leducuet</Text>
+                                        <Text style={{ fontSize: 12, color: '#795548', marginTop: 3 }}>{data.numb_question} thuật ngữ</Text>
+                                        <Text style={{ marginLeft: 20, fontWeight: 'bold' }}>{data.creator}</Text>
                                     </View>
                                 </View>
                                 <TouchableOpacity onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
@@ -181,7 +225,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4
                                     }}>
-                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_LearnScreen')}
+                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_LearnScreen', { data: data.words })}
                                         style={{ padding: 20 }}>
                                         <Icon name="leanpub" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={34} />
                                         <Text style={{
@@ -204,7 +248,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4,
                                     }}>
-                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_RememberCardScreen')}
+                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_RememberCardScreen', { data: data.words })}
                                         style={{ padding: 20 }}>
                                         <Icon name="list-alt" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={35} style={styles.icon} />
                                         <Text style={{
@@ -229,7 +273,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4
                                     }}>
-                                    <TouchableOpacity onPress={()=>props.navigation.navigate('Course_WriteScreen')}
+                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_WriteScreen')}
                                         style={{ padding: 10 }}>
                                         <Icon name="edit" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={34} />
                                         <Text style={{
@@ -275,7 +319,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4,
                                     }}>
-                                    <TouchableOpacity onPress={()=>props.navigation.navigate('Course_TestScreen')}
+                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_TestScreen')}
                                         style={{ padding: 10 }}>
                                         <Icon name="file-text-o" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={35} style={styles.icon} />
                                         <Text style={{
@@ -297,11 +341,18 @@ const Course = (props) => {
                                 </TouchableOpacity>
                             </View>
                             <FlatList
-                                data={data}
+                                data={data.words}
                                 renderItem={renderItemCard}
                                 keyExtractor={(item, index) => index.toString()}
                             />
                         </View>
+                        <Modal
+                            onBackdropPress={() => setVisibleModal(false)}
+                            backdropTransitionOutTiming={0}
+                            isVisible={visibleModal}
+                            hideModalContentWhileAnimating={true}>
+                            {renderModal()}
+                        </Modal>
                     </ScrollView>
                 </ImageBackground>
             </View>
@@ -309,22 +360,5 @@ const Course = (props) => {
     )
 };
 
-const data = [
-    {
-        content: "Số liền trước của sô 148 là",
-        answer: "147"
-    },
-    {
-        content: "Muốn tìm một phần mấy của một số, ta lấy số đó chia cho mấy phần",
-        answer: "148"
-    },
-    {
-        content: "question test2",
-        answer: "answer test 2"
-    },
-    {
-        content: "question test3",
-        answer: "answer test 3"
-    }
-]
+
 export default Course;

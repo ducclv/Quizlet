@@ -6,12 +6,11 @@ import {
     TouchableOpacity,
     TextInput,
     AsyncStorage,
-    ScrollView
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import styles from './Styles/AddTab_CourseStyles';
-
+import { HOST, requestPOST } from '../Services/Servies';
 const AddTab_Course = (props) => {
     const [darkMode, setDarkMode] = useState(false);
     const [data, setData] = useState([
@@ -44,13 +43,23 @@ const AddTab_Course = (props) => {
         newData[index].answer = value;
         setData(newData);
     }
-    const handleAdd = () => {
+    const handleAdd = async () => {
         var newData = data;
         newData.push({
             question: "",
             answer: "",
         })
-        setData(newData);
+        await setData(newData);
+    }
+    const handleSubmit = async () => {
+        const id = await AsyncStorage.getItem('isLogin');
+        var submit = {
+            user_id:id,
+            name: course,
+            words: data,
+        }
+        const post = await requestPOST(`${HOST}/lessons/add`, submit).then(res => { return res })
+        console.log(post.status)
     }
     const renderItem = ({ item, index }) => {
         return (
@@ -83,7 +92,7 @@ const AddTab_Course = (props) => {
                     <Icon name='md-arrow-back' size={25} color='#F5F5F5' type="ionicon" />
                 </TouchableOpacity>
                 <Text style={styles.title}>Tạo học phần</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => handleSubmit()}>
                     <Icon name='md-checkmark' size={25} color='#F5F5F5' type="ionicon" />
                 </TouchableOpacity>
             </View>
@@ -96,14 +105,14 @@ const AddTab_Course = (props) => {
                 />
                 <Text style={styles.text}>Tiêu đề</Text>
             </View>
-            <View style={{ flex:9/10, margin: 20, marginTop: 30 }}>
+            <View style={{ flex: 9 / 10, margin: 20, marginTop: 30 }}>
                 <FlatList
                     data={data}
                     renderItem={renderItem}
                     keyExtractor={(item, index) => index.toString()}
                 />
             </View>
-            <View style={{ flex:1/10, justifyContent: 'flex-end', alignItems: 'flex-end', padding: 20 }}>
+            <View style={{ flex: 1 / 10, justifyContent: 'flex-end', alignItems: 'flex-end', padding: 20 }}>
                 <TouchableOpacity onPress={() => handleAdd()}>
                     <Icon name="md-add-circle" type="ionicon" size={60} color="#00BCD4" />
                 </TouchableOpacity>

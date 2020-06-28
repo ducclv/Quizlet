@@ -41,11 +41,12 @@ const Login = (props) => {
             password: password
         }
         var postData = await requestPOST(`${HOST}/users/login`, newData).then(res => { return res })
+        // console.log(postData.data.user.id)
         if (postData.status === true) {
-            await AsyncStorage.setItem('isLogin', '1')
+            await AsyncStorage.setItem('isLogin', `${postData.data.user.id}`)
         }
-        else ToastAndroid.show(`${postData.message}`, ToastAndroid.LONG)
-        props.navigation.navigate('AuthLoading')
+        else ToastAndroid.show(`${postData.message}`, ToastAndroid.LONG);
+        props.navigation.navigate('AuthLoading');
 
     }
     const loginWithFB = () => {
