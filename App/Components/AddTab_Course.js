@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     TextInput,
     AsyncStorage,
+    ToastAndroid,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
@@ -54,12 +55,13 @@ const AddTab_Course = (props) => {
     const handleSubmit = async () => {
         const id = await AsyncStorage.getItem('isLogin');
         var submit = {
-            user_id:id,
+            user_id: id,
             name: course,
             words: data,
         }
         const post = await requestPOST(`${HOST}/lessons/add`, submit).then(res => { return res })
-        console.log(post.status)
+        ToastAndroid.show("Tạo môn học thành công", ToastAndroid.SHORT)
+        props.navigation.goBack();
     }
     const renderItem = ({ item, index }) => {
         return (

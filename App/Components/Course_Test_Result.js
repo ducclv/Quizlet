@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import styles from './Styles/Course_Test_ResultStyles';
-import * as Progress from 'react-native-progress';
 
 const Course_Test_Result = (props) => {
     const [darkMode, setDarkMode] = useState(false);
+    const [percent, setPercent] = useState(0);
     useEffect(() => {
         getTheme();
-    }, [])
+        setPercent(props.navigation.getParam('percent'))
+    }, [percent, props])
     const getTheme = async () => {
         const theme = await AsyncStorage.getItem('theme')
         if (theme === null) setDarkMode(false)
@@ -38,16 +40,24 @@ const Course_Test_Result = (props) => {
                     <Icon name='md-arrow-back' size={25} color='transparent' type="ionicon" />
                 </TouchableOpacity>
             </View>
-
-
-            {/* <Progress.Bar progress={0.3} width={200} /> */}
-            <View style={{flex:1/2}}>
-                <Progress.Pie progress={0.4} size={50} showsText={true}/>
-                <Progress.Circle size={30} indeterminate={true} />
-
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 50 }}>
+                <Text style={styles.txt}>Chúc mừng bạn đã học hết nội dung</Text>
+                <Text style={{
+                    color: "#03A9F4",
+                    fontWeight: 'bold',
+                    fontSize: 36,
+                    textAlign: 'center',
+                    marginTop: 20
+                }}>{Math.ceil(percent)}%</Text>
+                <TouchableOpacity style={{
+                    backgroundColor: '#607D8B', padding: 15, marginTop: 20
+                }}
+                    onPress={() => props.navigation.goBack()}
+                >
+                    <Text style={styles.title}>Học lại</Text>
+                </TouchableOpacity>
             </View>
-            {/* <Progress.Circle progress={0.4} size={30} indeterminate={true} showsText={true} formatText="hello" /> */}
-            {/* <Progress.CircleSnail color={['red', 'green', 'blue']} /> */}
+
         </View>
     )
 }

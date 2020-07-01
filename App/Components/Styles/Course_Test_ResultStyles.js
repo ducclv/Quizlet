@@ -3,6 +3,7 @@ import { StyleSheet, Dimensions } from 'react-native'
 export default StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:"#E0E0E0"
     },
     title: {
         fontSize: 20,
@@ -23,9 +24,10 @@ export default StyleSheet.create({
         flex: 0.5
     },
     txt: {
-        color: "#fff",
+        color:"#00BCD4",
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 24,
+        textAlign:'center',
     },
     answer: {
         flex: 1,

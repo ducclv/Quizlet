@@ -5,25 +5,29 @@ import {
     TouchableOpacity,
     FlatList,
     AsyncStorage,
+    RefreshControl,
+    ScrollView
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import styles from './Styles/HomeTabStyles';
 import { Avatar } from 'react-native-elements';
 import { HOST, requestGET } from '../Services/Servies';
 const HomeTab = (props) => {
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]);
+    const [refreshing, setRefreshing] = useState(true)
     useEffect(() => {
         fetchData();
         return () => { }
-    }, []);
+    }, [data, refreshing]);
     const fetchData = async () => {
         const id = await AsyncStorage.getItem('isLogin');
-        const newData = await requestGET(`${HOST}/lessons/viewMyLesson/${id}`)
-        setData(newData.data.list_lesson)
+        const newData = await requestGET(`${HOST}/lessons/viewMyLesson/${id}`);
+        setData(newData.data.list_lesson);
+        setRefreshing(false);
     }
     const renderItem = ({ item, index }) => {
         return (
-            <TouchableOpacity onPress={() => props.navigation.navigate('CourseScreen',{id:item.id})}>
+            <TouchableOpacity onPress={() => props.navigation.navigate('CourseScreen', { id: item.id })}>
                 <View style={{
                     backgroundColor: props.darkMode == false ? "#F5F5F5" : "#263238",
                     padding: 20,
@@ -59,8 +63,12 @@ const HomeTab = (props) => {
             </TouchableOpacity>
         )
     }
+    const onRefresh = () => {
+        fetchData();
+    }
     return (
-        <View style={styles.container}>
+        <View style={styles.container}
+        >
             <View style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -71,17 +79,24 @@ const HomeTab = (props) => {
             }}>
                 <Text style={styles.title}>Trang chủ</Text>
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginLeft: 10, marginRight: 10, marginBottom: 10 }}>
-                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Học phần</Text>
-                <TouchableOpacity onPress={() => props.navigation.navigate('HomeTab_CourseScreen')}>
-                    <Text style={{ color: '#00838F' }}>Xem tất cả  &gt;</Text>
-                </TouchableOpacity>
-            </View>
-            <FlatList
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={(item, index) => index.toString()}
-            />
+            <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => onRefresh()} />}>
+                <View
+                    style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginLeft: 10, marginRight: 10, marginBottom: 10 }}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Học phần</Text>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('HomeTab_CourseScreen')}>
+                        <Text style={{ color: '#00838F' }}>Xem tất cả  &gt;</Text>
+                    </TouchableOpacity>
+                </View>
+                <View >
+                    <FlatList
+                        data={data}
+                        renderItem={renderItem}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
+            </ScrollView>
+
+
         </View>
     )
 };

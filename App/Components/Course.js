@@ -16,7 +16,7 @@ import { Icon } from 'react-native-elements';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import FlipCard from 'react-native-flip-card';
 import Modal from 'react-native-modal';
-import { HOST, requestGET } from '../Services/Servies';
+import { HOST, requestGET, requestPOST } from '../Services/Servies';
 const Course = (props) => {
     const [darkMode, setDarkMode] = useState(false);
     const sliderWidth = Dimensions.get("screen").width;
@@ -25,7 +25,7 @@ const Course = (props) => {
     const [data, setData] = useState({});
     const [words, setWords] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [visibleModal, setVisibleModal] = useState(false)
+    const [visibleModal, setVisibleModal] = useState(false);
     useEffect(() => {
         fetchData();
         getTheme();
@@ -123,7 +123,7 @@ const Course = (props) => {
     };
 
     const renderModal = () => {
-        if (visibleModal == true) {
+        if (visibleModal == true && data.is_attended == true) {
             return (
                 <View style={{
                     backgroundColor: darkMode === false ? "#0D47A1" : "#212121",
@@ -138,7 +138,7 @@ const Course = (props) => {
                         <Icon name="edit" type="antdesign" size={30} color="#fff" />
                         <Text style={styles.txt}>Sửa học phần</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.row}>
+                    <TouchableOpacity style={styles.row} onPress={() => removeCourse()}>
                         <Icon name="delete" type="antdesign" size={30} color="#fff" />
                         <Text style={styles.txt}>Xóa học phần</Text>
                     </TouchableOpacity>
@@ -150,7 +150,80 @@ const Course = (props) => {
                 </View>
             )
         }
+        else if (visibleModal == true && data.is_attended == false) {
+            return (
+                <View style={{
+                    backgroundColor: darkMode === false ? "#0D47A1" : "#212121",
+                    justifyContent: 'center',
+                    margin: 20,
+                }}>
+                    <TouchableOpacity style={styles.row} onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
+                        <Icon name='md-share' size={30} color="#fff" type="ionicon" />
+                        <Text style={styles.txt}>Chia sẻ học phần</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.row} onPress={() => joinCourse()}>
+                        <Icon name="edit" type="antdesign" size={30} color="#fff" />
+                        <Text style={styles.txt}>Tham gia học phần</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', margin: 20 }}
+                        onPress={() => setVisibleModal(false)}
+                    >
+                        <Text style={styles.txt}>Hủy</Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        }
     }
+    const joinCourse = async () => {
+        var user_id = await AsyncStorage.getItem('isLogin');
+        var id = props.navigation.getParam('id');
+        var newData = {
+            lesson_id: id,
+            user_id: user_id
+        }
+        const dataPost = await requestPOST(`${HOST}/lessons/attendLesson`, newData).then(res => { return res })
+        setVisibleModal(false);
+        ToastAndroid.show("Đã tham gia khóa học", ToastAndroid.SHORT)
+    }
+    const goToLearnScreen = async () => {
+        if (data.is_attended == false) {
+            joinCourse();
+        }
+        props.navigation.navigate('Course_LearnScreen', { data: data.words })
+    }
+    const goToRememberCard = async () => {
+        if (data.is_attended == false) {
+            joinCourse();
+        }
+        props.navigation.navigate('Course_RememberCardScreen', { data: data.words })
+    }
+    const goToWriteScreen = async () => {
+        if (data.is_attended == false) {
+            joinCourse();
+        }
+        props.navigation.navigate('Course_WriteScreen', { data: data.words })
+    }
+    const goToTestScreen = async () => {
+        if (data.is_attended == false) {
+            joinCourse();
+        }
+        props.navigation.navigate('Course_TestScreen', { data: data.words })
+    }
+    const removeCourse = async () => {
+        if (data.is_attended == true) {
+            var user_id = await AsyncStorage.getItem('isLogin');
+            var id = props.navigation.getParam('id');
+            var newData = {
+                lesson_id: id,
+                user_id: user_id
+            }
+            const dataPost = await requestPOST(`${HOST}/lessons/quitLesson`, newData).then(res => { return res });
+            setVisibleModal(false);
+            ToastAndroid.show("Đã xóa khóa học", ToastAndroid.SHORT)
+            props.navigation.navigate('MainBodyScreen');
+        }
+    }
+
     if (loading) return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <ActivityIndicator />
@@ -225,7 +298,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4
                                     }}>
-                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_LearnScreen', { data: data.words })}
+                                    <TouchableOpacity onPress={() => goToLearnScreen()}
                                         style={{ padding: 20 }}>
                                         <Icon name="leanpub" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={34} />
                                         <Text style={{
@@ -248,7 +321,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4,
                                     }}>
-                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_RememberCardScreen', { data: data.words })}
+                                    <TouchableOpacity onPress={() => goToRememberCard()}
                                         style={{ padding: 20 }}>
                                         <Icon name="list-alt" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={35} style={styles.icon} />
                                         <Text style={{
@@ -273,7 +346,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4
                                     }}>
-                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_WriteScreen')}
+                                    <TouchableOpacity onPress={() => goToWriteScreen()}
                                         style={{ padding: 10 }}>
                                         <Icon name="edit" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={34} />
                                         <Text style={{
@@ -319,7 +392,7 @@ const Course = (props) => {
                                         margin: 5,
                                         elevation: 4,
                                     }}>
-                                    <TouchableOpacity onPress={() => props.navigation.navigate('Course_TestScreen')}
+                                    <TouchableOpacity onPress={() => goToTestScreen()}
                                         style={{ padding: 10 }}>
                                         <Icon name="file-text-o" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={35} style={styles.icon} />
                                         <Text style={{

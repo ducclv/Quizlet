@@ -38,7 +38,6 @@ const Course_Learn = (props) => {
         setSize(newData.length-index);
         setDataSource(newData);
         setData(newData[index]);
-        console.log('test')
     }
     const handleChange = (value) => {
         setInput(value)

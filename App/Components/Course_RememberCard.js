@@ -20,15 +20,15 @@ export default class RememberCard extends Component {
             darkMode: false,
             progress: 0,
             progressbar: 0,
-            count: 1,
+            count: 0,
             know: 0,
             unknow: 0,
             data: []
         }
     }
     componentDidMount() {
-        this.getTheme()
-        this.setState({ data: this.props.navigation.getParam('data') })
+        this.getTheme();
+        this.setState({ data: this.props.navigation.getParam('data') });
     }
     getTheme = async () => {
         const theme = await AsyncStorage.getItem('theme')
@@ -57,11 +57,11 @@ export default class RememberCard extends Component {
     }
     handleRefresh = async () => {
         var newCount = this.state.count;
-        while (newCount != 1) {
+        while (newCount != 0) {
             await this.swiper.goBackFromTop();
             newCount--;
         }
-        this.setState({ count: 1, progressbar: 0, progress: 0, know: 0, unknow: 0 })
+        this.setState({ count: 0, progressbar: 0, progress: 0, know: 0, unknow: 0 })
     }
     render() {
         return (

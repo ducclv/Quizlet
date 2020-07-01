@@ -3,7 +3,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
+    AsyncStorage,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import styles from './Styles/Course_TestStyles';
@@ -15,11 +16,13 @@ const Course_Test = (props) => {
     const width = Dimensions.get('window').width;
     const [data, setData] = useState([]);
     const [index, setIndex] = useState(0);
+    const [know, setKnow] = useState(0);
     useEffect(() => {
         getTheme();
         fetchData();
-        setProgress(index / dataTest.length);
-    }, [progress, data, index])
+        var newData = props.navigation.getParam('data');
+        setProgress(index / newData.length);
+    }, [progress, data, index, know, props])
     const getTheme = async () => {
         const theme = await AsyncStorage.getItem('theme')
         if (theme === null) setDarkMode(false)
@@ -27,26 +30,39 @@ const Course_Test = (props) => {
         else if (theme === 'false') setDarkMode(false)
     };
     const fetchData = async () => {
-        setData(dataTest[index])
-    }
+        var newData = props.navigation.getParam('data');
+        setData(newData[index])
+    };
     const handleTrue = () => {
         var newIndex = index;
-        if (newIndex != dataTest.length - 1) {
+        var newKnow = know;
+        var newData = props.navigation.getParam('data');
+        if (newIndex != newData.length - 1) {
             newIndex++;
-            setIndex(newIndex)
+            newKnow++;
+            setKnow(newKnow);
+            setIndex(newIndex);
         }
-        else props.navigation.navigate('Course_Test_ResultScreen');
-
-    }
+        else {
+            props.navigation.navigate('Course_Test_ResultScreen', { percent: know * 100 / (newData.length - 1) });
+            setIndex(0);
+            setKnow(0);
+        }
+    };
     const handleFalse = () => {
         var newIndex = index;
-        if (newIndex != dataTest.length - 1) {
+        var newData = props.navigation.getParam('data');
+        if (newIndex != newData.length - 1) {
             newIndex++;
-            setIndex(newIndex)
+            setIndex(newIndex);
         }
-        else props.navigation.navigate('Course_Test_ResultScreen');
+        else {
+            props.navigation.navigate('Course_Test_ResultScreen', { percent: know * 100 / (newData.length - 1) });
+            setIndex(0);
+            setKnow(0);
 
-    }
+        }
+    };
     return (
         <View style={styles.container}>
             <View style={{
@@ -87,26 +103,3 @@ const Course_Test = (props) => {
 }
 
 export default Course_Test;
-
-const dataTest = [
-    {
-        question: "Số liền trước của sô 148 là",
-        answer: "147"
-    },
-    {
-        question: "Muốn tìm một phần mấy của một số, ta lấy số đó chia cho mấy phần",
-        answer: "148"
-    },
-    {
-        question: "so lien truoc so 148 la",
-        answer: "147"
-    },
-    {
-        question: "question test2",
-        answer: "answer test 2"
-    },
-    {
-        question: "question test3",
-        answer: "answer test 3"
-    }
-]
