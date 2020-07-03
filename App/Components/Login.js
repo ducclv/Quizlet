@@ -8,17 +8,21 @@ import {
     Image,
     TextInput,
     ScrollView,
-    ToastAndroid
+    ToastAndroid,
+    ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from './Styles/RegisterStyles';
 import AsyncStorage from '@react-native-community/async-storage'
 import { HOST, requestPOST } from '../Services/Servies';
+import * as Animatable from 'react-native-animatable';
+
 const Login = (props) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [icEye, setIcEye] = useState('eye-slash');
     const [showPassword, setShowPassword] = useState(true);
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         return () => {
         }
@@ -41,7 +45,7 @@ const Login = (props) => {
             password: password
         }
         var postData = await requestPOST(`${HOST}/users/login`, newData).then(res => { return res })
-        // console.log(postData.data.user.id)
+        setLoading(true)
         if (postData.status === true) {
             await AsyncStorage.setItem('isLogin', `${postData.data.user.id}`)
         }
@@ -66,7 +70,39 @@ const Login = (props) => {
             }
         );
     };
-
+    const renderBtnLogin = () => {
+        if (!loading) return (
+            <TouchableOpacity
+                onPress={() => handleLogin()}
+                style={{
+                    height: 60,
+                    backgroundColor: "#5D4037",
+                    marginTop: 40,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: "center"
+                }}
+            >
+                <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Đăng nhập</Text>
+            </TouchableOpacity>
+        )
+        else {
+            return (
+                <Animatable.View animation='fadeIn'
+                    style={{
+                        height: 60,
+                        backgroundColor: "#5D4037",
+                        marginTop: 40,
+                        borderRadius: 10,
+                        alignItems: 'center',
+                        justifyContent: "center"
+                    }}
+                >
+                    <ActivityIndicator size='large' color='#fff' />
+                </Animatable.View>
+            )
+        }
+    }
     return (
         <ScrollView style={styles.container}>
             <StatusBar barStyle="dark-content" backgroundColor='#673AB7' />
@@ -138,19 +174,7 @@ const Login = (props) => {
                 </View>
             </View>
 
-            <TouchableOpacity
-                onPress={() => handleLogin()}
-                style={{
-                    height: 60,
-                    backgroundColor: "#5D4037",
-                    marginTop: 40,
-                    borderRadius: 10,
-                    alignItems: 'center',
-                    justifyContent: "center"
-                }}
-            >
-                <Text style={{ color: '#FAFAFA', fontSize: 20, fontWeight: 'bold' }}>Đăng nhập</Text>
-            </TouchableOpacity>
+            {renderBtnLogin()}
 
             <View style={{ marginTop: 20, marginBottom: 50, alignItems: 'center' }}>
                 <Text style={{ color: '#795548', fontSize: 16 }}>Quên <Text style={{ color: '#2196F3', fontSize: 16 }}>tên người dùng </Text> hoặc <Text style={{ color: '#2196F3', fontSize: 16 }}>mật khẩu?</Text></Text>

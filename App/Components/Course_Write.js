@@ -84,11 +84,14 @@ const Course_Write = (props) => {
                 </TouchableOpacity>
             </View>
 
-            <View style={{ flex: 1 / 2, padding: 20 }}>
+            <View style={styles.question}>
                 <Text style={styles.title}>{data.question}</Text>
             </View>
 
             <View style={{ flex: 1 / 2, padding: 20 }}>
+                <View style={styles.answer}>
+                    <Text style={styles.title}>{data.answer}</Text>
+                </View>
                 <View style={styles.row}>
                     <TouchableOpacity onPress={() => handleKnow()}
                         style={styles.btn}>
@@ -99,10 +102,6 @@ const Course_Write = (props) => {
                         style={styles.btn}>
                         <Text style={styles.txt}>Không biết</Text>
                     </TouchableOpacity>
-                </View>
-
-                <View style={styles.answer}>
-                    <Text style={styles.title}>{data.answer}</Text>
                 </View>
             </View>
         </View>

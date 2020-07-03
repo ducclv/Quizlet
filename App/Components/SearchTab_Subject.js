@@ -37,7 +37,7 @@ const SearchTab_Subject = (props) => {
                                 color: props.darkMode == false ? "#212121" : "#F5F5F5",
                                 fontWeight: 'bold',
                                 fontSize: 18,
-                            }}>{item.name}</Text>
+                            }}>{item.name.toUpperCase()}</Text>
                             <Text style={{ fontSize: 12, color: '#795548', marginTop: 3 }}>{item.numb_question} thuật ngữ</Text>
                         </View>
                         {/* <View>

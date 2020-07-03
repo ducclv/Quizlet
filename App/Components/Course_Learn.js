@@ -35,7 +35,7 @@ const Course_Learn = (props) => {
     };
     const fetchData = () => {
         var newData = props.navigation.getParam('data');
-        setSize(newData.length-index);
+        setSize(newData.length - index);
         setDataSource(newData);
         setData(newData[index]);
     }
@@ -63,7 +63,22 @@ const Course_Learn = (props) => {
             setProgress(newIndex / newData.length);
             setInput('');
         }
-        else props.navigation.goBack();
+        else {
+            if (newData[newIndex].answer === input) {
+                newKnow++;
+                setKnow(newKnow);
+            } else {
+                newUnknow++;
+                setUnknow(newUnknow);
+            }
+            props.navigation.navigate('Course_Test_ResultScreen', { percent: know * 100 / (newData.length) });
+            setKnow(0);
+            setUnknow(0);
+            setIndex(0);
+            setSize(0);
+            setProgress(0);
+            setInput('');
+        }
     }
     return (
         <SafeAreaView style={styles.container}>

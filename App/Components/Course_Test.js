@@ -76,8 +76,11 @@ const Course_Test = (props) => {
                     <Icon name='md-arrow-back' size={25} color='#F5F5F5' type="ionicon" />
                 </TouchableOpacity>
                 <View>
-                    <Progress.Bar progress={progress} width={width - 100} color="#fff" />
+                    <Progress.Bar progress={progress} width={width - 120} color="#fff" />
                 </View>
+                <TouchableOpacity onPress={() => props.navigation.goBack()}>
+                    <Icon name='sliders' size={23} color='#F5F5F5' type="font-awesome" />
+                </TouchableOpacity>
             </View>
             <View style={styles.question}>
                 <Text style={styles.title}>{data.question}</Text>

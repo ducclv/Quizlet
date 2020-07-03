@@ -42,7 +42,7 @@ const Course = (props) => {
     const fetchData = async () => {
         var user_id = await AsyncStorage.getItem('isLogin');
         var id = props.navigation.getParam('id');
-        const newData = await requestGET(`${HOST}/lessons/view/${id}/?user_id=${user_id}`);
+        var newData = await requestGET(`${HOST}/lessons/view/${id}/?user_id=${user_id}`);
         setData(newData.data)
         setWords(newData.data.words)
     }
@@ -114,7 +114,7 @@ const Course = (props) => {
                             marginTop: 20
                         }}>{item.answer}</Text>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
                         <Icon name="volume-up" type="font-awesome" />
                     </TouchableOpacity>
                 </View>
@@ -123,55 +123,57 @@ const Course = (props) => {
     };
 
     const renderModal = () => {
-        if (visibleModal == true && data.is_attended == true) {
-            return (
-                <View style={{
-                    backgroundColor: darkMode === false ? "#0D47A1" : "#212121",
-                    justifyContent: 'center',
-                    margin: 20,
-                }}>
-                    <TouchableOpacity style={styles.row} onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
-                        <Icon name='md-share' size={30} color="#fff" type="ionicon" />
-                        <Text style={styles.txt}>Chia sẻ học phần</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.row}>
-                        <Icon name="edit" type="antdesign" size={30} color="#fff" />
-                        <Text style={styles.txt}>Sửa học phần</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.row} onPress={() => removeCourse()}>
-                        <Icon name="delete" type="antdesign" size={30} color="#fff" />
-                        <Text style={styles.txt}>Xóa học phần</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', margin: 20 }}
-                        onPress={() => setVisibleModal(false)}
-                    >
-                        <Text style={styles.txt}>Hủy</Text>
-                    </TouchableOpacity>
-                </View>
-            )
-        }
-        else if (visibleModal == true && data.is_attended == false) {
-            return (
-                <View style={{
-                    backgroundColor: darkMode === false ? "#0D47A1" : "#212121",
-                    justifyContent: 'center',
-                    margin: 20,
-                }}>
-                    <TouchableOpacity style={styles.row} onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
-                        <Icon name='md-share' size={30} color="#fff" type="ionicon" />
-                        <Text style={styles.txt}>Chia sẻ học phần</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.row} onPress={() => joinCourse()}>
-                        <Icon name="edit" type="antdesign" size={30} color="#fff" />
-                        <Text style={styles.txt}>Tham gia học phần</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', margin: 20 }}
-                        onPress={() => setVisibleModal(false)}
-                    >
-                        <Text style={styles.txt}>Hủy</Text>
-                    </TouchableOpacity>
-                </View>
-            )
+        if (visibleModal === true) {
+            if (data.is_attended === true) {
+                return (
+                    <View style={{
+                        backgroundColor: darkMode === false ? "#0D47A1" : "#212121",
+                        justifyContent: 'center',
+                        margin: 20,
+                    }}>
+                        <TouchableOpacity style={styles.row} onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
+                            <Icon name='md-share' size={30} color="#fff" type="ionicon" />
+                            <Text style={styles.txt}>Chia sẻ học phần</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.row} onPress={() => { props.navigation.navigate('Course_IntoClassScreen', { words: data.words, name: data.name }); setVisibleModal(false) }}>
+                            <Icon name="edit" type="antdesign" size={30} color="#fff" />
+                            <Text style={styles.txt}>Thêm vào lớp học</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.row} onPress={() => removeCourse()}>
+                            <Icon name="delete" type="antdesign" size={30} color="#fff" />
+                            <Text style={styles.txt}>Xóa học phần</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', margin: 20 }}
+                            onPress={() => setVisibleModal(false)}
+                        >
+                            <Text style={styles.txt}>Hủy</Text>
+                        </TouchableOpacity>
+                    </View>
+                )
+            }
+            else {
+                return (
+                    <View style={{
+                        backgroundColor: darkMode === false ? "#0D47A1" : "#212121",
+                        justifyContent: 'center',
+                        margin: 20,
+                    }}>
+                        <TouchableOpacity style={styles.row} onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
+                            <Icon name='md-share' size={30} color="#fff" type="ionicon" />
+                            <Text style={styles.txt}>Chia sẻ học phần</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.row} onPress={() => joinCourse()}>
+                            <Icon name="edit" type="antdesign" size={30} color="#fff" />
+                            <Text style={styles.txt}>Tham gia học phần</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', margin: 20 }}
+                            onPress={() => setVisibleModal(false)}
+                        >
+                            <Text style={styles.txt}>Hủy</Text>
+                        </TouchableOpacity>
+                    </View>
+                )
+            }
         }
     }
     const joinCourse = async () => {

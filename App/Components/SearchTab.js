@@ -24,15 +24,15 @@ const SearchTab = (props) => {
             <SearchBar
                 lightTheme
                 placeholder="Tìm kiếm"
-                onChangeText={(text)=>setKeyword(text)}
+                onChangeText={(text) => setKeyword(text)}
                 onClearText={() => setKeyword('')}
                 value={keyword}
-                containerStyle={{ backgroundColor: "#1976D2", margin: -1 }}
+                containerStyle={{ backgroundColor: props.darkMode == false ? "#1976D2" : "#212121", margin: -1 }}
                 inputContainerStyle={{ backgroundColor: "#fff" }}
                 onEndEditing={updateSearch}
             />
             <ScrollableTabView
-                style={styles.container}
+                style={styles.container, { backgroundColor: props.darkMode == false ? "#EEEEEE" : "#212121" }}
                 tabBarPosition='top'
                 initialPage={0}
                 renderTabBar={() => <SearchTab_TabBar {...props} />}

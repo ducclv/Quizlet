@@ -27,6 +27,7 @@ const AddTab_Course = (props) => {
     const [course, setCourse] = useState('');
     useEffect(() => {
         getTheme();
+        fetchData();
     }, [data])
     const getTheme = async () => {
         const theme = await AsyncStorage.getItem('theme')
@@ -34,6 +35,14 @@ const AddTab_Course = (props) => {
         else if (theme === 'true') setDarkMode(true)
         else if (theme === 'false') setDarkMode(false)
     };
+    const fetchData = async() => {
+        var id = props.navigation.getParam('id');
+        var user_id = await AsyncStorage.getItem('isLogin');
+        if (id !== undefined) {
+            var newData = await requestGET(`${HOST}/lessons/view/${id}/?user_id=${user_id}`);
+            setData(newData.data.words)
+        }
+    }
     const handleQuestion = (value, index) => {
         var newData = data;
         newData[index].question = value;
@@ -59,7 +68,7 @@ const AddTab_Course = (props) => {
             name: course,
             words: data,
         }
-        const post = await requestPOST(`${HOST}/lessons/add`, submit).then(res => { return res })
+        var post = await requestPOST(`${HOST}/lessons/add`, submit).then(res => { return res })
         ToastAndroid.show("Tạo môn học thành công", ToastAndroid.SHORT)
         props.navigation.goBack();
     }

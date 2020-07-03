@@ -13,6 +13,9 @@ import Course_WriteScreen from '../Containers/Course_WriteScreen';
 import Course_TestScreen from '../Containers/Course_TestScreen';
 import Course_Test_ResultScreen from '../Containers/Course_Test_ResultScreen';
 import AddTab_CourseScreen from '../Containers/AddTab_CourseScreen';
+import AddTab_ClassScreen from '../Containers/AddTab_ClassScreen';
+import ClassScreen from '../Containers/ClassScreen';
+import Course_IntoClassScreen from '../Containers/Course_IntoClassScreen';
 const AuthStack = createStackNavigator(
         {
                 LoginMainBodyScreen: { screen: LoginMainBodyScreen },
@@ -36,6 +39,9 @@ const AppNavigator = createStackNavigator(
                 Course_TestScreen: { screen: Course_TestScreen },
                 Course_Test_ResultScreen: { screen: Course_Test_ResultScreen },
                 AddTab_CourseScreen: { screen: AddTab_CourseScreen },
+                AddTab_ClassScreen: { screen: AddTab_ClassScreen },
+                ClassScreen: { screen: ClassScreen },
+                Course_IntoClassScreen: { screen: Course_IntoClassScreen },
         },
         {
                 initialRouteName: 'MainBodyScreen',

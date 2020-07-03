@@ -30,5 +30,13 @@ export default StyleSheet.create({
     flex:1,
     alignItems:'center',
     justifyContent:'center',
-  }
+  },
+  question: {
+    flex: 1 / 2,
+    margin: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#00BCD4',
+    alignItems: 'center',
+    justifyContent: 'center'
+}
 })

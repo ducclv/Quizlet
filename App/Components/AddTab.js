@@ -89,7 +89,7 @@ const AddTab = (props) => {
                                     margin: 5
                                 }}>
                                 <TouchableOpacity 
-                                // onPress={() => props.navigation.navigate('WrongAnswerList')} 
+                                 onPress={() => props.navigation.navigate('AddTab_ClassScreen')} 
                                 style={{ padding: 20 }}>
                                     <Icon name="group" color={props.darkMode == false ? "#616161" : "#EEEEEE"} size={32} style={styles.icon} />
                                     <Text style={{

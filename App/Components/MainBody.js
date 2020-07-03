@@ -27,7 +27,7 @@ const MainBody = (props) => {
     };
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="dark-content" backgroundColor='#0D47A1' />
+            <StatusBar barStyle="dark-content" backgroundColor={darkMode == false ?'#0D47A1':"#212121"} />
             <ScrollableTabView
                 style={styles.container}
                 tabBarPosition='bottom'
