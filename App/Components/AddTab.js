@@ -26,7 +26,7 @@ const AddTab = (props) => {
             <View style={{ flex: 1 }}>
                 <View style={{ flex: 4 / 10 }} >
                     <ImageBackground
-                        source={require('../Images/add.png')}
+                        source={require('../Images/add.jpg')}
                         style={{ flex: 1 }}
                     >
                     </ImageBackground>
