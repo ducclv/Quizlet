@@ -15,7 +15,7 @@ const SearchTab_Class = (props) => {
         fetchData();
     }, [props]);
     const fetchData = async () => {
-        const newData = await requestGET(`${HOST}/classrooms/listClass?keyword=${props.keyword}`);
+        var newData = await requestGET(`${HOST}/classrooms/listClass?keyword=${props.keyword}`);
         setData(newData.data);
     }
 
@@ -41,18 +41,7 @@ const SearchTab_Class = (props) => {
                             }}>{item.name.toUpperCase()}</Text>
                             <Text style={{ fontSize: 12, color: '#795548', marginTop: 3 }}>{item.description} thuật ngữ</Text>
                         </View>
-                        {/* <View>
-                            <Text>image</Text>
-                        </View> */}
                     </View>
-                    {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-                        <Avatar
-                            rounded
-                            size="small"
-                            source={require('../Images/avatar.jpg')}
-                        />
-                        <Text style={{ marginLeft: 10, fontWeight: 'bold' }}>{item.creator}</Text>
-                    </View> */}
                 </View>
             </TouchableOpacity>
         )

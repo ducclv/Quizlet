@@ -79,6 +79,8 @@ target 'Quizlet' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNShare', :path => '../node_modules/react-native-share'
+
   target 'QuizletTests' do
     inherit! :complete
     # Pods for testing

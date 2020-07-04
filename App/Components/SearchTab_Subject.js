@@ -15,7 +15,7 @@ const SearchTab_Subject = (props) => {
         fetchData();
     }, [props]);
     const fetchData = async () => {
-        const newData = await requestGET(`${HOST}/lessons/listLesson?keyword=${props.keyword}`);
+        var newData = await requestGET(`${HOST}/lessons/listLesson?keyword=${props.keyword}`);
         setData(newData.data)
     }
     const renderItem = ({ item, index }) => {
@@ -40,9 +40,6 @@ const SearchTab_Subject = (props) => {
                             }}>{item.name.toUpperCase()}</Text>
                             <Text style={{ fontSize: 12, color: '#795548', marginTop: 3 }}>{item.numb_question} thuật ngữ</Text>
                         </View>
-                        {/* <View>
-                            <Text>image</Text>
-                        </View> */}
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                         <Avatar

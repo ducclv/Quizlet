@@ -192,7 +192,7 @@ const HomeTab = (props) => {
                 }}>
                     <Text style={styles.title}>Trang chủ</Text>
                 </View>
-                <Empty theme={false} />
+                <Empty theme={props.darkMode} />
             </View>
         )
     else

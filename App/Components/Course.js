@@ -17,6 +17,13 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import FlipCard from 'react-native-flip-card';
 import Modal from 'react-native-modal';
 import { HOST, requestGET, requestPOST } from '../Services/Servies';
+import Share from 'react-native-share';
+const options = Platform.select({
+    default: {
+        title: 'Ứng dụng Quizlet',
+        subject: 'Ứng dụng Quizlet',
+    }
+});
 const Course = (props) => {
     const [darkMode, setDarkMode] = useState(false);
     const sliderWidth = Dimensions.get("screen").width;
@@ -131,11 +138,11 @@ const Course = (props) => {
                         justifyContent: 'center',
                         margin: 20,
                     }}>
-                        <TouchableOpacity style={styles.row} onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
+                        <TouchableOpacity style={styles.row} onPress={() => Share.open(options)}>
                             <Icon name='md-share' size={30} color="#fff" type="ionicon" />
                             <Text style={styles.txt}>Chia sẻ học phần</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.row} onPress={() => { props.navigation.navigate('Course_IntoClassScreen', { words: data.words, name: data.name }); setVisibleModal(false) }}>
+                        <TouchableOpacity style={styles.row} onPress={() => { props.navigation.navigate('Course_IntoClassScreen', { id: props.navigation.getParam('id') }); setVisibleModal(false) }}>
                             <Icon name="group" type="font-awesome" size={28} color="#fff" />
                             <Text style={styles.txt}>Thêm vào lớp học</Text>
                         </TouchableOpacity>
@@ -158,7 +165,7 @@ const Course = (props) => {
                         justifyContent: 'center',
                         margin: 20,
                     }}>
-                        <TouchableOpacity style={styles.row} onPress={() => ToastAndroid.show("Tính năng đang triển khai", ToastAndroid.SHORT)}>
+                        <TouchableOpacity style={styles.row} onPress={() => Share.open(options)}>
                             <Icon name='md-share' size={30} color="#fff" type="ionicon" />
                             <Text style={styles.txt}>Chia sẻ học phần</Text>
                         </TouchableOpacity>
@@ -302,7 +309,7 @@ const Course = (props) => {
                                     }}>
                                     <TouchableOpacity onPress={() => goToLearnScreen()}
                                         style={{ padding: 20 }}>
-                                        <Icon name="leanpub" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={34} />
+                                        <Icon name="leanpub" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={32} />
                                         <Text style={{
                                             color: darkMode == false ? "#009688" : "#EEEEEE",
                                             textAlign: 'center',
@@ -325,7 +332,7 @@ const Course = (props) => {
                                     }}>
                                     <TouchableOpacity onPress={() => goToRememberCard()}
                                         style={{ padding: 20 }}>
-                                        <Icon name="list-alt" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={35} style={styles.icon} />
+                                        <Icon name="list-alt" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={33} style={styles.icon} />
                                         <Text style={{
                                             color: darkMode == false ? "#009688" : "#EEEEEE",
                                             textAlign: 'center',
@@ -344,13 +351,13 @@ const Course = (props) => {
                                         backgroundColor: darkMode == false ? "#fff" : "#263238",
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        flex: 1 / 3,
+                                        flex: 1 / 2,
                                         margin: 5,
                                         elevation: 4
                                     }}>
                                     <TouchableOpacity onPress={() => goToWriteScreen()}
-                                        style={{ padding: 10 }}>
-                                        <Icon name="edit" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={34} />
+                                        style={{ padding: 20 }}>
+                                        <Icon name="edit" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={35} />
                                         <Text style={{
                                             color: darkMode == false ? "#009688" : "#EEEEEE",
                                             textAlign: 'center',
@@ -362,7 +369,7 @@ const Course = (props) => {
                                         }}>VIẾT</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <View
+                                {/* <View
                                     style={{
                                         backgroundColor: darkMode == false ? "#fff" : "#263238",
                                         alignItems: 'center',
@@ -384,19 +391,19 @@ const Course = (props) => {
                                             fontWeight: 'bold'
                                         }}>THẺ GHÉP</Text>
                                     </TouchableOpacity>
-                                </View>
+                                </View> */}
                                 <View
                                     style={{
                                         backgroundColor: darkMode == false ? "#fff" : "#263238",
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        flex: 1 / 3,
+                                        flex: 1 / 2,
                                         margin: 5,
                                         elevation: 4,
                                     }}>
                                     <TouchableOpacity onPress={() => goToTestScreen()}
-                                        style={{ padding: 10 }}>
-                                        <Icon name="file-text-o" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={35} style={styles.icon} />
+                                        style={{ padding: 20 }}>
+                                        <Icon name="file-text-o" type="font-awesome" color={darkMode == false ? "#1976D2" : "#EEEEEE"} size={33} style={styles.icon} />
                                         <Text style={{
                                             color: darkMode == false ? "#009688" : "#EEEEEE",
                                             textAlign: 'center',

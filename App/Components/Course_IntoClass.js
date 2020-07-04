@@ -31,19 +31,14 @@ const Course_IntoClass = (props) => {
         setData(newData.data.list_lesson);
     }
     const submit = async (id) => {
-        var user_id = await AsyncStorage.getItem('isLogin');
-        var name = props.navigation.getParam('name');
-        var words = props.navigation.getParam('words');
+        var lesson_id = props.navigation.getParam('id');
         var newData = {
-            user_id: id,
-            name: name,
-            words: words,
+            lesson_id: lesson_id,
             classroom_id: id,
         }
-        var post = await requestPOST(`${HOST}/lessons/add`, newData).then(res => { return res })
+        var post = await requestPOST(`${HOST}/lessons/addLessonToClass`, newData).then(res => { return res })
         ToastAndroid.show("Thêm vào lớp học thành công", ToastAndroid.SHORT)
         props.navigation.goBack();
-        console.log(post);
     }
     const renderItem = ({ item, index }) => {
         return (
