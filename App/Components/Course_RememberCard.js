@@ -147,25 +147,3 @@ export default class RememberCard extends Component {
         )
     }
 }
-const dataTest = [
-    {
-        question: "Số liền trước của sô 148 là",
-        answer: "147"
-    },
-    {
-        question: "Muốn tìm một phần mấy của một số, ta lấy số đó chia cho mấy phần",
-        answer: "148"
-    },
-    {
-        question: "so lien truoc so 148 la",
-        answer: "147"
-    },
-    {
-        question: "question test2",
-        answer: "answer test 2"
-    },
-    {
-        question: "question test3",
-        answer: "answer test 3"
-    }
-]

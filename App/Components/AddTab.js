@@ -65,7 +65,7 @@ const AddTab = (props) => {
                                     margin: 5
                                 }}>
                                 <TouchableOpacity
-                                    // onPress={() => props.navigation.navigate('RecentAnswerList')} 
+                                    onPress={() => props.navigation.navigate('AddTab_FolderScreen')} 
                                     style={{ padding: 20 }}>
                                     <Icon name="folder" color={props.darkMode == false ? "#616161" : "#EEEEEE"} size={35} style={styles.icon} />
                                     <Text style={{

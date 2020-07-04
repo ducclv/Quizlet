@@ -1,16 +1,29 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
     container: {
         flex: 1,
+    },
+    text: {
+        color: '#616161',
+        textAlign: 'center',
+        fontSize: 24,
+        height: 120
     },
     title: {
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 20,
     },
-    tabView: {
+    image: {
         flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center"
+    },
+    row: {
+        flexDirection: "row",
+        alignItems: 'center',
+        marginLeft: 20,
     },
     txt: {
         fontSize: 18,
@@ -18,7 +31,7 @@ export default StyleSheet.create({
         fontWeight: "bold",
         marginLeft: 20
     },
-    row: {
+    row2: {
         flexDirection: "row",
         alignItems: 'center',
         marginBottom: 20,

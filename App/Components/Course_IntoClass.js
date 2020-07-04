@@ -43,7 +43,7 @@ const Course_IntoClass = (props) => {
         var post = await requestPOST(`${HOST}/lessons/add`, newData).then(res => { return res })
         ToastAndroid.show("Thêm vào lớp học thành công", ToastAndroid.SHORT)
         props.navigation.goBack();
-        // console.log(newData);
+        console.log(post);
     }
     const renderItem = ({ item, index }) => {
         return (

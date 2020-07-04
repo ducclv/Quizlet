@@ -21,6 +21,7 @@ export default class AuthLoading extends Component {
     }
     loadData = async () => {
         const isLoggedIn = await AsyncStorage.getItem('isLogin');
-        this.props.navigation.navigate(isLoggedIn === '0' ? 'Auth' : 'App');
+        if (isLoggedIn) this.props.navigation.navigate('App')
+        else this.props.navigation.navigate('Auth');
     };
 }

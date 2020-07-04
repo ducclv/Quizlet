@@ -40,18 +40,20 @@ const Login = (props) => {
         setPassword(password)
     };
     const handleLogin = async () => {
+        setLoading(true)
         var newData = {
             username: userName,
             password: password
         }
         var postData = await requestPOST(`${HOST}/users/login`, newData).then(res => { return res })
-        setLoading(true)
         if (postData.status === true) {
             await AsyncStorage.setItem('isLogin', `${postData.data.user.id}`)
+            props.navigation.navigate('AuthLoading');
         }
-        else ToastAndroid.show(`${postData.message}`, ToastAndroid.LONG);
-        props.navigation.navigate('AuthLoading');
-
+        else {
+            ToastAndroid.show(`${postData.message}`, ToastAndroid.LONG);
+            setLoading(false)
+        }
     }
     const loginWithFB = () => {
         LoginManager.logInWithPermissions(["public_profile"]).then(

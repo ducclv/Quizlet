@@ -16,6 +16,8 @@ import AddTab_CourseScreen from '../Containers/AddTab_CourseScreen';
 import AddTab_ClassScreen from '../Containers/AddTab_ClassScreen';
 import ClassScreen from '../Containers/ClassScreen';
 import Course_IntoClassScreen from '../Containers/Course_IntoClassScreen';
+import AddTab_FolderScreen from '../Containers/AddTab_FolderScreen';
+import FolderScreen from '../Containers/FolderScreen';
 const AuthStack = createStackNavigator(
         {
                 LoginMainBodyScreen: { screen: LoginMainBodyScreen },
@@ -42,6 +44,8 @@ const AppNavigator = createStackNavigator(
                 AddTab_ClassScreen: { screen: AddTab_ClassScreen },
                 ClassScreen: { screen: ClassScreen },
                 Course_IntoClassScreen: { screen: Course_IntoClassScreen },
+                AddTab_FolderScreen: { screen: AddTab_FolderScreen },
+                FolderScreen: { screen: FolderScreen },
         },
         {
                 initialRouteName: 'MainBodyScreen',

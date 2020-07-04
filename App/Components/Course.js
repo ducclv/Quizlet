@@ -136,11 +136,11 @@ const Course = (props) => {
                             <Text style={styles.txt}>Chia sẻ học phần</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.row} onPress={() => { props.navigation.navigate('Course_IntoClassScreen', { words: data.words, name: data.name }); setVisibleModal(false) }}>
-                            <Icon name="edit" type="antdesign" size={30} color="#fff" />
+                            <Icon name="group" type="font-awesome" size={28} color="#fff" />
                             <Text style={styles.txt}>Thêm vào lớp học</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.row} onPress={() => removeCourse()}>
-                            <Icon name="delete" type="antdesign" size={30} color="#fff" />
+                            <Icon name="delete" type="antdesign" size={28} color="#fff" />
                             <Text style={styles.txt}>Xóa học phần</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', margin: 20 }}
